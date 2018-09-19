@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="assets/images/favicon.ico">
+  <title>Scale Labs Smart Seller</title>
+  <!-- Bootstrap core CSS-->
+  <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+  <!-- UI-GRID CSS -->
+  <link href="vendor/ui-grid/release/ui-grid.css" rel="stylesheet" type="text/css" href="">
+  <!-- Custom fonts for this template-->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  
+  <!-- Custom styles for this template-->
+  <link href="css/navbar.css" rel="stylesheet" type="text/css"> 
+
+  <link href="css/app.css" rel="stylesheet" type="text/css" href="">
+
+
+</head>
+
+<body class="fixed-nav sticky-footer" id="page-top">
+  <!-- Navigation-->
+       
+       <div ng-include src="'views/navbar.html'">        
+       </div>
+
+      
+
+      <div class="page" ng-view ng-cloak>
+        
+      </div>
+
+
+     
+  <!-- xls core for upload catalogue-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xls/0.7.6/xls.core.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
+        <script src=" https://cdnjs.cloudflare.com/ajax/libs/xls/0.7.4-a/xls.js"></script>
+
+    <!-- Angular JavaScript-->
+    <script src="vendor/angular/angular.min.js"></script>
+    <script src="vendor/angular/angular-route.min.js"></script>
+    <script src="vendor/angular/angular-local-storage.js"></script> 
+     <script src="vendor/angular/angular-animate.js"></script> 
+      <script src="vendor/angular/angular-sanitize.js"></script> 
+       <script src="vendor/angular/angular-touch.js"></script> 
+
+    <!-- UI Grid & UI bootstrap-->
+    <script src="vendor/ui-bootstrap/ui-bootstrap-tpls-2.2.0.js"></script> 
+    <script src="vendor/ui-grid/release/ui-grid.js"></script> 
+      
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap-toggle.min.js"></script>
+   
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script> 
+    <script src="vendor/lodash/lodash.js"></script>
+
+  
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="vendor/chart.js/angular-chart.min.js"></script>   
+
+
+    <script src="vendor/angular-file-saver/dist/angular-file-saver.min.js"></script>   
+    <script src="vendor/angular-file-saver/dist/angular-file-saver.bundle.min.js"></script>
+
+     <script src="vendor/blob/index.js"></script>  
+    
+    <script src="app/app.js"></script>
+    <script src="app/config/route.js"></script>
+    <script src="app/config/localStorage.js"></script>
+
+    <!-- HomeController JS Files-->
+    <script src="app/home/home.js"></script>
+    <script src="app/home/controllers/mainController.js"></script>
+    <script src="app/home/controllers/navController.js"></script>
+    <script src="app/home/services/httpInterceptor.js"></script>
+    <script src="app/home/services/mainService.js"></script>  
+    <script src="app/home/services/validationService.js"></script>   
+
+    <!-- UserManagementController JS Files-->
+    <script src="app/userManagement/userManagement.js"></script>
+    <script src="app/userManagement/controllers/mainController.js"></script>
+    <script src="app/userManagement/services/mainService.js"></script>  
+
+    <!-- Allocate Seller JS Files-->
+    <script src="app/allocateSellers/allocateSellers.js"></script>
+    <script src="app/allocateSellers/controllers/mainController.js"></script>
+    <script src="app/allocateSellers/services/mainService.js"></script> 
+
+     <!-- Configure Market Place JS Files-->
+    <script src="app/configureMarketPlace/configureMarketPlace.js"></script>
+    <script src="app/configureMarketPlace/controllers/mainController.js"></script>
+    <script src="app/configureMarketPlace/services/mainService.js"></script>  
+
+     <!-- Order Status JS Files-->
+    <script src="app/orderStatus/orderStatus.js"></script>
+    <script src="app/orderStatus/controllers/mainController.js"></script>
+    <script src="app/orderStatus/services/mainService.js"></script>  
+
+     <!-- Upload Catalogue JS Files-->
+    <script src="app/uploadCatalogue/uploadCatalogue.js"></script>
+    <script src="app/uploadCatalogue/controllers/mainController.js"></script>
+    <script src="app/uploadCatalogue/services/mainService.js"></script>  
+
+    <!-- Order Tracking JS Files-->
+    <script src="app/orderTracking/orderTracking.js"></script>
+    <script src="app/orderTracking/controllers/mainController.js"></script>
+    <script src="app/orderTracking/services/mainService.js"></script>  
+
+
+    <!-- Reports JS Files-->
+    <script src="app/reports/reports.js"></script>
+    <script src="app/reports/controllers/mainController.js"></script>
+    <script src="app/reports/services/mainService.js"></script>  
+
+    <!-- Shared Services-->
+    <script src="app/shared/sharedService.js"></script>
+    <script src="app/shared/mainService.js"></script>
+
+</body>
+
+</html>

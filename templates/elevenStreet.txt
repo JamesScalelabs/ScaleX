@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Product>
+	<selMthdCd>01</selMthdCd>
+	<dispCtgrNo>4986</dispCtgrNo>
+	<prdTypCd>01</prdTypCd>
+	<prdNm>$name</prdNm>
+	<prdStatCd>01</prdStatCd>
+	<prdWght>$packageWeight</prdWght>
+	<minorSelCnYn>Y</minorSelCnYn>
+	<prdImage01>$image1</prdImage01>
+	<prdImage02>$image2</prdImage02>
+	<prdImage03>$image3</prdImage03>
+	<prdImage04>$image4</prdImage04>
+	<htmlDetail>$productDescription</htmlDetail>
+	<selTermUseYn>N</selTermUseYn>
+	<selPrc>$price</selPrc>
+	<prdSelQty>$quantity</prdSelQty>
+	<productWrtOption>
+		<colValue0></colValue0>
+		<colValue1></colValue1>
+	</productWrtOption>
+	<asDetail>-</asDetail>
+	<dlvMthCd>01</dlvMthCd>
+	<dlvCstInstBasiCd>01</dlvCstInstBasiCd>
+	<rtngExchDetail>Y</rtngExchDetail>
+	<suplDtyfrPrdClfCd>02</suplDtyfrPrdClfCd>
+</Product>

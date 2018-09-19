@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Request>
+    <Product>
+        <PrimaryCategory>10001955</PrimaryCategory>
+        <SPUId></SPUId>
+        <AssociatedSku>$sellerSku</AssociatedSku>
+        <Attributes>
+            <name>$name</name>
+            <short_description>$productDescription</short_description>
+            <brand>$brand</brand>
+            <model>$model</model>
+        </Attributes>
+        <Skus>
+            <Sku>
+                <SellerSku>$sellerSku</SellerSku>
+                <color_family>$color</color_family>
+                <size>$shoes_size_name</size>
+                <quantity>$quantity</quantity>
+                <price>$price</price>
+                <package_length>$packageLength</package_length>
+                <package_height>$packageHeight</package_height>
+                <package_weight>$packageWeight</package_weight>
+                <package_width>$packageWidth</package_width>
+		<tax_class>default</tax_class>
+                <Images>
+                    <Image>$image1</Image>
+                </Images>
+            </Sku>
+        </Skus>
+    </Product>
+</Request>

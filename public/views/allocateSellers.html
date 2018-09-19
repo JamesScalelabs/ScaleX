@@ -1,0 +1,77 @@
+<div>
+    <div class="content-wrapper">
+        
+        <div class="container-fluid">
+            <div uib-alert ng-class="'alert-' + alerts.type" ng-show="alerts.alert" type="{{alerts.type}}" close="closeAlert()">{{alerts.msg}}
+        </div>
+        <div class="col-md-12 text-center col-pad-fix" ng-show="onGetSeller">
+            <div class="progressMsg"><i class="fa fa-spinner fa-spin fa-2x"></i>Loading data</div>
+        </div>
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li>You are here: &nbsp;</li>
+                <li class="breadcrumb-item">
+                    <a href="#/">Dashboard</a>
+                </li>
+                <li class="breadcrumb-item active">Allocate Seller</li>
+            </ol>
+           
+
+            <div class="card mb-3">
+                <div class="card-header">
+                     <i class="fa fa-users"></i> Allocate Sellers
+                    </div>
+                <div class="card-body">
+                     <div class="gridtopRow">
+                <div class="col-md-8 col-pad-fix vertical-align">
+                    <div class="col-md-3">
+                        <label class="control-label">Group Name:</label>
+                    </div>
+                    <div class="col-md-5">
+                        <select class="styled-select form-control" ng-model="selectedManager" ng-options="temp for temp in muList" ng-change="getAllocateSellers()">
+                </select>
+                    </div>
+                </div>
+            </div>
+                    <div class="col-md-12 col-pad-fix configure-data vertical-align">
+                        <div class="col-md-5 col-xs-10">
+                            <label class="control-label" ng-class="{'text-muted': disableFields}">Availabe Users</label>
+                            <select multiple class="form-control" ng-disabled="disableFields" ng-model="availableDataModel" ng-options="data.id as data.value for data in configure[0].availableData"></select>
+                        </div>
+                        <div class="col-md-2 col-xs-4 text-center">
+                            <button class="btn btn-normal" ng-click="addToSelected()" ng-disabled="!availableDataModel || availableDataModel.length <= 0 || disableFields"><i class="fa fa-angle-right"></i></button>
+                            <button class="btn btn-normal" ng-click="removeFromSelected()" ng-disabled="!selectedDataModel || selectedDataModel <= 0 || disableFields"><i class="fa fa-angle-left"></i></button>
+                            <button class="btn btn-normal" ng-disabled="disableFields" ng-click="addAll()"><i class="fa fa-angle-double-right"></i></button>
+                            <button class="btn btn-normal" ng-disabled="disableFields" ng-click="removeAll()"><i class="fa fa-angle-double-left"></i></button>
+                        </div>
+                        <div class="col-md-5 col-xs-10">
+                            <label class="control-label" ng-class="{'text-muted': disableFields}">Allocated Sellers</label>
+                            <select multiple class="form-control" ng-model="selectedDataModel" ng-disabled="disableFields" ng-options="data.id as data.value for data in configure[0].selectedData | orderBy:'value'"></select>
+                        </div>
+                    </div>
+                    <!-- </div> -->
+                    <br/><br/>
+                    <center>
+                        <button class="btn btn-danger btn-width " ng-click="doCancel()">Cancel</button>
+                        <button class="btn btn-primary btn-width" ng-click="allocateSellers()">Submit</button>
+                    </center>
+
+                </div>
+                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            </div>
+        </div>
+        <!-- /.container-fluid-->
+    </div>
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+        <div class="container">
+            <div class="text-center">
+                <small>Copyright © Scale Labs</small>
+            </div>
+        </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+</div>

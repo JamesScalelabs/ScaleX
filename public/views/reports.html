@@ -1,0 +1,113 @@
+<div class="reportspage">
+	<div class="content-wrapper">
+		<div class="container-fluid">
+			<div uib-alert ng-class="'alert-' + alerts.type" ng-show="alerts.alert" type="{{alerts.type}}" close="closeAlert()">{{alerts.msg}}
+			</div>
+			<div class="col-md-12 text-center col-pad-fix" ng-show="onLoad">
+				<div class="progressMsg"><i class="fa fa-spinner fa-spin fa-2x"></i>Loading data</div>
+			</div>
+			<!-- Breadcrumbs-->
+			<ol class="breadcrumb">
+				<li>You are here: &nbsp;</li>
+				<li class="breadcrumb-item">
+					<a href="#/">Dashboard</a>
+				</li>
+				<li class="breadcrumb-item active">Reports</li>
+			</ol>
+			<div class="card">
+				<div class="card-header">
+					<i class="fa fa-motorcycle"></i> Reports
+				</div>
+
+				<div class="card-body">
+					<ul class="nav nav-tabs" id="myTab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link" ng-class="{'active' : firstTab == true}" ng-click="toggleTab('first')" id="home-tab">Product Level Inventory</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" ng-class="{'active' : secondTab == true}" ng-click="toggleTab('second')" id="profile-tab">Top Products Sold</a>
+						</li>
+
+					</ul>
+					<div class="tab-content" id="myTabContent" ng-cloak>
+						<div  ng-if="firstTab">
+							<div>
+								<div class="card-body">
+									<div>
+										<div>
+											<div class="reportbox">
+												<h5>Product Level Inventory Remaining</h5>
+
+												<div id="grid1" ui-grid="{ data: productLevelInventoryRemainingData }" class="grid"></div>
+											</div>
+										</div>
+										<div>
+											<div class="reportbox">
+												<h5>Overall Inventory Worth:</h5>
+												<h2 class="overallInv" style="color:green">{{overallInventoryWorth}}</h2>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm">
+												<div class="reportbox">
+													<h5>Inventory Worth By Category</h5>
+
+													<div id="grid2" ui-grid="{ data: inventoryWorthByCategory }" class="grid"></div>
+												</div>
+											</div>
+											<div class="col-sm">
+												<div class="reportbox">
+													<h5>Number Of Products To Be Restocked</h5>
+
+													<div id="grid3" ui-grid="{ data: NumberOfProductsToBeRestocked }" class="grid"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div ng-if="secondTab">
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm">
+										<div class="reportbox">
+											<h5>Overall Products Sold</h5>
+
+											<div id="grid4" ui-grid="{ data: overallProductsSold }" class="grid"></div>
+										</div>
+									</div>
+									<div class="col-sm">
+										<div class="reportbox">
+											<h5>Products Sold By Category</h5>
+
+											<div id="grid5" ui-grid="{ data: productsSoldByCategory }" class="grid"></div>
+										</div>
+									</div>
+								</div>
+								<div class="reportbox">
+									<h5>Products Sold By Region</h5>
+
+									<div id="grid6" ui-grid="{ data: productsSoldByRegion }" class="grid"></div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.content-wrapper-->
+	<footer class="sticky-footer">
+		<div class="container">
+			<div class="text-center">
+				<small>Copyright © Scale Labs</small>
+			</div>
+		</div>
+	</footer>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top">
+		<i class="fa fa-angle-up"></i>
+	</a>
+</div>

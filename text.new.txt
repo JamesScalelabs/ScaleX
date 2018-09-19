@@ -1,0 +1,355 @@
+<style type="text/css">.print-panel-section .print-page {
+  -webkit transform: rotate(90deg);
+}
+p {
+    margin: 0;
+    padding: 0;
+}
+img {
+    margin-right: 110px;
+    margin-top: -30px;
+}
+.merchantinfo {
+    position: relative;
+    line-height: 10px;
+    font-size: 14px;
+    border-bottom: 1px solid #000;
+}
+.merchantinfo, .merchantinfo_content {
+    width: 700px;
+    height: 112px;
+}
+.merchantinfo_content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
+.logo {
+    position: relative;
+   
+}
+.logo, .logo_content {
+    width: 700px;
+    height: 112px;
+}
+.logo_content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+}
+.address_line, .address_block {
+    list-style-type: none;
+    margin: 0; padding: 0;
+    overflow: hidden;
+    font-size: 11px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.3;
+}
+.address_line li {
+    float: left;
+    display: inline;
+    margin-right: 10px;
+} 
+.logo .address_line {
+    padding-top: 88px;
+    float: left;
+    width: 70%;
+}
+.logo .address_block {
+    float: right;
+    width: 29%;
+    padding-top: 59px;
+}
+.address_block li {
+    overflow: hidden;
+}
+.address_block li .label {
+    float: left;
+    width: 50px;
+}
+.container {
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+    margin: 0 0 15px 0;
+    width: 700px;
+}
+.address_block_large {
+    margin-top: 50px;
+}
+.address_block_large ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.address_block_large ul li {
+    margin: 0;
+    padding: 0;
+}
+.datagrid_header {
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.datagrid_header .headline {
+    float: left;
+    width: 49%;
+    padding-top: 16px;
+}
+.datagrid_header .details {
+    float: right;
+    width: 49%;
+    text-align: right;
+}
+.headline {
+    font-size: 16px;
+    font-weight: bold;
+}
+.datagrid {
+    margin-bottom: 10px;
+}
+.datagrid table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.datagrid th, .datagrid td {
+    margin: 0;
+    padding: 5px 10px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 13px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+}
+.datagrid th {
+    font-weight: bold;
+    border-top: 3px solid #CCCCCC;
+    border-bottom: 3px solid #CCCCCC;
+}
+.datagrid td {
+    border-bottom: 2px solid #CCCCCC;
+}
+.summary_wrap {
+    overflow: hidden;
+}
+.summary {
+    float: right;
+    width: 35%;
+}
+.summary ul {
+    list-style-type: none;
+    margin: 0; padding: 0;
+}
+.summary ul li {
+    margin: 0;
+    padding: 0 0 5px 0;
+    overflow: hidden;
+}
+.summary ul li .label {
+    float: left;
+    width: 50%;
+}
+.summary ul li .value {
+    float: right;
+    width: 49%;
+    text-align: right;
+}
+.summary .total {
+    border-top: 1px solid;
+    border-bottom-style: double;
+    font-weight: bold;
+}
+.footer {
+    clear: both;
+    
+    text-align: left;
+    border-top: 4px solid #f2f2f2;
+}
+.footer .address_line {
+    padding-top: 5px;
+}
+.footer .address_line li {
+    display: inline-block;
+    float: none;
+}
+.gsttable {
+    border-collapse: collapse;
+}
+.gsttable, gsttd, gstth {
+    border: 1px solid black;
+    padding: 5px;
+}
+.addresstable {
+    margin: 20px 0 0 0;
+}
+.addressrules {
+    font: 12px Arial;
+    border: none;
+    border-collapse: collapse;
+}
+.addressrules td {
+    padding: 5px;
+}
+.addressrules .tableHeader td {
+    border-top: 1px solid #aaa;
+    font-weight: bold;
+}  
+.addressrules .tableRow td {
+    border: none;
+}
+.addressrules .tableFooter td {
+    border-bottom: 1px solid #aaa;
+}
+.addressrules .tableHeader .spacerColumn, .addresstable .tableRow .spacerColumn, .addresstable .tableFooter .spacerColumn {
+    width: 30px;
+    border: none;
+    background: #fff;
+}
+      
+#customer-name-and-shipping ul {
+    list-style-position: outside;
+    margin-left: -40px;
+}
+    
+#customer-name-and-shipping li {
+    list-style: none;
+    list-style-position: outside;
+    margin-left: 0;
+    }
+
+ .my-footer{
+                bottom: 0;
+                left: 0;
+                position: fixed;
+                right: 0;
+            }
+            .my-header {
+                top: 0;
+                left: 0;
+                float:right;
+                bottom: auto;
+                margin-top: 20px;
+            }
+</style>
+<div style="page-break-before: always">&nbsp;</div>
+
+<div class="logo">
+<div class="merchantinfo">
+<div><strong>TRAVEL TRENDZ</strong><br />
+<br />
+118 Time Square Building, opp. Landmark Empire Saroli 395010 &nbsp;9377798284<br />
+<br />
+GST Registration No.: 24222400805</div>
+</div>
+&nbsp;
+
+<div>
+<div style="text-align: center;"><strong>TAX INVOICE</strong></div>
+</div>
+
+<div>
+<table style="width:100%">
+	<tbody>
+		<tr>
+		</tr>
+		<tr>
+			<td><strong>Invoice Number:</strong></td>
+			<td>&nbsp;</td>
+			<td>353958291</td>
+		</tr>
+		<tr>
+			<td><strong>Order Number:</strong></td>
+			<td>&nbsp;</td>
+			<td>353958291</td>
+		</tr>
+		<tr>
+			<td><strong>Order Date:</strong></td>
+			<td>&nbsp;</td>
+			<td>10 Oct 2017</td>
+		</tr>
+		<tr>
+			<td><strong>Invoice To:</strong></td>
+			<td>&nbsp;</td>
+			<td>SUMITRA SABAPATHIRAJU  </td>
+		</tr>
+		<tr>
+			<td><strong>Invoice Date:</strong></td>
+			<td>&nbsp;</td>
+			<td>10 Oct 2017</td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p>&nbsp;</p>
+
+<p><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASoAAABgAQAAAACC9QI8AAAACXBIWXMAAC4jAAAuIwF4pT92AAAAEnRFWHRTb2Z0d2FyZQBCYXJjb2RlNEryjnYuAAAArUlEQVR42mP4///PN4Ebik92+HMaNN/KsWk7XKHb9It7wbfmxCdq0id5vgnE//9/gGFU2aiyUWWjykaVjSobVTaqbFTZqLJRZSNSGRFgGCr7UVDw4eDDw4fl8Sv7vv192v17O2ffJ2Dp9v/58ff+7iWkbMP/fGfCyv7UWzyrefh7JiHT9u8vrLv3/ShhZfV1997/JaDsu7le3p1793cTUPajouDjw4eNx9nJiwUAY0Xi/fECSeIAAAAASUVORK5CYII=' /></p>
+</div>
+
+<div class="addresstable">
+<table class="addressrules" style="width:100%">
+	<tbody>
+		<tr class="tableHeader">
+			<td>BILLING ADDRESS</td>
+			<td class="spacerColumn">&nbsp;</td>
+			<td>SHIPPING ADDRESS</td>
+		</tr>
+		<tr>
+			<td valign="top">6305 RPT DESA CHANGKAT BATU GAJAH 31000 PERAK,,Batu Gajah,Malaysia</td>
+			<td class="spacerColumn">&nbsp;</td>
+			<td valign="top">6305 RPT DESA CHANGKAT BATU GAJAH 31000 PERAK,,Batu Gajah,Malaysia</td>
+		</tr>
+		<tr class="tableFooter">
+			<td><strong>Contact Phone: </strong>053654627</td>
+			<td class="spacerColumn">&nbsp;</td>
+			<td><strong>Contact Phone: </strong>053654627</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<div><strong>Payment Method: </strong>MIXEDCARD</div>
+
+<div class="datagrid_header container">
+<p style="width: 343px;">Your ordered items for&nbsp;353958291</p>
+</div>
+
+<div class="container datagrid"><table>
+	<thead>
+		<tr>
+		<th>#</th>
+		<th>Product name</th>
+		<th>Seller SKU</th> 
+		<th>Shop SKU</th>
+		<th>Price</th>
+		<th>Paid Price</th>
+		</tr>
+	</thead>
+	<tbody>
+<tr>
+			<td>1</td>
+			<td>Trendz Style Silk Blend  Blue Saree with Blouse</td>
+			<td>TZ_1093_F</td> 
+			<td>TR078FAABEWIFEANMY-110098356</td>
+			<td class="price-value">192.00</td>
+			<td class="price-value">192.00</td>
+		</tr>	</tbody>
+</table></div>
+
+<div class="container summary_wrap">
+<div class="summary">
+<ul>
+	<li><span class="label"><strong>Subtotal (incl GST):</strong></span> <span class="value"><strong><em>RM</em> 192.00</strong></span></li>
+	<li style="border-bottom: 1px solid"><span class="label">Less: Voucher applied:</span> <span class="value"><em>-RM</em> 0.00</span></li>
+	<li><span class="label"><strong>Total (incl GST):</strong></span> <span class="value"><strong><em>RM</em> <span>192.00</span></strong></span></li>
+	<li><span class="label">Shipping (incl GST):</span> <span class="value"><em>+RM</em> <span>0.00</span></span></li>
+	<li class="total"><span class="label"><strong>Net Paid:</strong></span> <span class="value"><strong><em>RM</em> <span>192.00</span></strong></span></li>
+	<li><span class="label">Total (incl GST):</span> <span class="value"><em>RM</em> <span>192.00</span></span></li>
+	<li><span class="label">*GST</span> <span class="value"><em>RM</em> 0.00</span></li>
+	<li class="total"><span class="label"><strong>Total (excl GST)</strong></span> <span class="value"><strong><em>RM</em> 192.00</strong></span></li>
+	<li>*6% GST Applied Where Applicable</li>
+</ul>
+</div>
+</div>
+</div>

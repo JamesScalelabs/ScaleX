@@ -1,0 +1,9 @@
+{
+    "responseCode": 0,
+    "response": {
+        "groupName": "SELLER",
+        "userName": "SELLer1",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNFTExlcjEiLCJpYXQiOjE1MDgwODI4MjF9.FlXy0HZHIaS-ScVZdU9ZMd5IlDPJtsIDz3F63aOPH7E"
+    },
+    "errorMsg": ""
+}

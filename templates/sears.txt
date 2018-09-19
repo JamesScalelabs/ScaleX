@@ -1,0 +1,28 @@
+<catalog-feed xmlns="http://seller.marketplace.sears.com/catalog/v24" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://seller.marketplace.sears.com/catalog/v24 ../../../../../rest/catalog/import/v24/lmp-item.xsd">
+<fbm-catalog>
+<items>
+<<<<<<< HEAD
+<item item-id="$ItemID">
+<title>$Title</title>
+<short-desc>$ShortDescription</short-desc>
+<upc>296666461012</upc>
+<model-number>DPF-V70</model-number>
+<!--  Required  -->
+<standard-price>$price</standard-price>
+<brand>$brand</brand>
+<!--  Required  -->
+<image-url>
+<url>
+$image1
+</url>
+</image-url>
+<feature-image-url>
+<url>$image2</url>
+</feature-image-url>
+<feature-image-url>
+<url>$image3</url>
+</feature-image-url>
+</item>
+</items>
+</fbm-catalog>
+</catalog-feed>

@@ -1,0 +1,48 @@
+{
+    "ErrorLanguage": "en_US",
+    "WarningLevel": "High",
+    "AddItemRequestContainer": [
+    {
+    "MessageID": "1",
+    "Item": {
+        "Title": "$name",
+	"SubTitle": "$name",
+        "Description": "$productDescription",
+        "PrimaryCategory": {
+            "CategoryID": "15689"
+        },
+        "StartPrice": "$price",
+        "CategoryMappingAllowed": "true",
+        "Country": "US",
+        "Currency": "USD",
+        "ConditionID": "1000",
+        "DispatchTimeMax": "3",
+        "ListingDuration": "Days_7",
+        "ListingType": "Chinese",
+        "PaymentMethods": "PayPal",
+        "PayPalEmailAddress": "scalelabs02-facilitator@gmail.com",
+        "PictureDetails": {
+            "PictureURL": "$image1"
+        },
+        "PostalCode": "95125",
+        "Quantity": "$quantity",
+        "ReturnPolicy": {
+            "ReturnsAcceptedOption": "ReturnsAccepted",
+            "RefundOption": "MoneyBack",
+            "ReturnsWithinOption": "Days_30",
+            "Description": "Text description of return policy details",
+            "ShippingCostPaidByOption": "Buyer"
+        },
+        "ShippingDetails": {
+            "ShippingType": "Flat",
+            "ShippingServiceOptions": {
+                "ShippingServicePriority": "1",
+                "ShippingService": "USPSMedia",
+                "ShippingServiceCost": "2.50"
+            }
+        },
+        "Site": "US"
+    }
+    }
+    ]
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="assets/images/favicon.ico">
+  <title>Scale Labs Smart Seller</title>
+
+  <!-- Bootstrap core CSS-->
+  <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+  <link href="vendor/ui-grid/release/ui-grid.css" rel="stylesheet" type="text/css" href="">
+
+  <link href="css/secApp.css" rel="stylesheet" type="text/css" href="">
+
+ 
+
+
+</head>
+
+<body bg-color="blue" >
+
+  <div ng-controller="MainCtrl">
+
+
+      <div class="content-wrapper">
+
+          <div class="container-fluid">
+            <!-- Breadcrumbs-->
+
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                    <img src="assets/images/favicon.ico" style="width:150px;height: 50px" alt="Scale Labs" />
+              </li>
+            </ol> 
+
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="#">Seller Name :<b> {{sellerName}} </b> </a>
+              </li>
+            </ol> 
+                
+            <div class="card mb-3">
+              <div class="card-header">
+                <i class="fa fa-users"></i>Product : <b>{{productName}}</b></div>
+              <div class="card-body">
+                <div ui-grid="orderDetailsGrid" ui-grid-selection ui-grid-pagination ui-grid-resize-columns  ui-grid-auto-resize class="grid">        
+                </div> 
+              </div>
+              <div class="card-footer small text-muted">
+                    Updated yesterday at 11:59 PM
+              </div>
+            </div>
+
+          <!-- /.container-fluid-->
+       </div>
+          <!-- /.content-wrapper-->
+            
+    </div>
+
+  </div>
+
+
+    <script src="vendor/lodash/lodash.js"></script>    
+        <!-- Angular JavaScript-->
+    <script src="vendor/angular/angular.min.js"></script>
+    <script src="vendor/angular/angular-route.min.js"></script>
+    <script src="vendor/angular/angular-local-storage.js"></script> 
+    <script src="vendor/angular/angular-animate.js"></script> 
+    <script src="vendor/angular/angular-sanitize.js"></script> 
+    <script src="vendor/angular/angular-touch.js"></script> 
+  <script src="vendor/chart.js/Chart.min.js"></script>
+    <!-- UI Grid & UI bootstrap-->
+    <script src="vendor/ui-bootstrap/ui-bootstrap-tpls-2.2.0.js"></script> 
+    <script src="vendor/ui-grid/release/ui-grid.js"></script> 
+    <script src="app/view-page.js"></script>
+    <script src="vendor/ui-grid/release/ui-grid.js"></script> 
+      
+    
+    
+
+</body>
+
+</html>

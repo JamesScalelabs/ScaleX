@@ -1,0 +1,297 @@
+<div> 
+<div class="content-wrapper">
+  <div class="container-fluid">
+    <div uib-alert ng-class="'alert-' + alerts.type" ng-show="alerts.alert" type="{{alerts.type}}"
+    close="closeAlert()">{{alerts.msg}}
+    </div>
+    <div class="col-md-12 text-center col-pad-fix" ng-show="onGetUser">
+      <div class="progressMsg"><i class="fa fa-spinner fa-spin fa-2x"></i>Please wait while Loading Data from Server </div>
+    </div> 
+  </div>
+
+    <div class="container-fluid">
+      <!-- Breadcrumbs-->
+      <div class="clearfix">
+      <ol class="breadcrumb">
+        <li>You are here: &nbsp;</li>
+        <li class="breadcrumb-item">
+          <a href="#/">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">User Management</li>
+      </ol>
+      
+    </div>
+
+      <div class="card mb-3">
+        <div class="card-header">
+         <i class="fa fa-user"></i> User Management
+        </div>
+        <div class="card-body">
+          <div class="clearfix"><div class="pull-right"><button type="button" class="btn btn-primary btn-md glyphicon glyphicon-ok-sign" data-title="AddUser" data-toggle="modal" data-target="#addUser" ng-click="clearData()"><i class="fa fa-plus" aria-hidden="true"></i> Add User</button></div></div>
+          
+          <div class="col-md-12 text-center col-pad-fix" ng-show="onChangeStatus">
+          <div class="progressMsg"><i class="fa fa-spinner fa-spin fa-2x"></i>&nbsp;&nbsp;Enabling/Disabling user
+          </div>
+        </div>
+
+          <div ui-grid="availableUserGrid" ui-grid-selection ui-grid-pagination ui-grid-resize-columns  ui-grid-auto-resize class="grid">        
+          </div> 
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+      </div>
+    </div>
+    <!-- /.container-fluid-->
+    </div>
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright &copy; Scale Labs</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+<!-- Add User -->
+ <div class="modal fade" id="addUser" role="dialog" aria-labelledby="add" aria-hidden="true">    
+      <div class="modal-dialog">      
+        <div class="modal-content">
+         <div uib-alert ng-class="'alert-' + addAlerts.type" ng-show="addAlerts.alert" type="{{addAlerts.type}}"
+          close="closeAddAlert()">{{addAlerts.msg}}
+          </div>
+          <div class="col-md-12 text-center col-pad-fix" ng-show="true">
+              <div class="progressMsg" text-center ng-show="onCreate"><i class="fa fa-spinner fa-spin fa-2x"></i>&nbsp;&nbsp;Loading Data
+          </div>
+          </div>
+          
+          <div class="modal-header">          
+            <h4 class="modal-title " id="Heading">Add User</h4>
+            <button type="button" class="close" data-dismiss="modal" ><span class="glyphicon glyphicon-remove" >&times;</span></button>
+          </div>          
+          <form name="addForm">
+            <div class="col-md-12 col-pad-fix note">
+            <small><span style="color:#f00">*</span> All fields are mandatory.</small>
+          </div>
+          <div class="col-md-12 col-pad-fix  vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >First Name:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" maxlength="64" alpha-numeric-space ng-model="addUserRequest.user.firstName">
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix  vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >Last Name:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" maxlength="64" alpha-numeric-space ng-model="addUserRequest.user.lastName">
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix  vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >User Name:</label>
+              </div>
+              <div class="col-md-8">    
+                  <input type="email" name="userName" class="form-control" maxlength="64" alpha-numeric-space ng-model="addUserRequest.user.userName" required>
+                 
+                  <small ng-show="addForm.userName.$invalid && !addForm.userName.$pristine" class="help-block form-error">User name should be email.</small>
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix  vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >Password:</label>
+              </div>
+              <div class="col-md-8">
+                  <input name="password" type="password" class="form-control"  maxlength="64" alpha-numeric-space ng-model="addUserRequest.user.password" required>
+                  <small ng-show="addForm.password.$invalid && !addForm.password.$pristine" class="help-block form-error">Password can't be left blank</small>
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix  vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >Re-Type Password:</label>
+              </div>
+              <div class="col-md-8">
+                  <input name ="retypePassword" type="password" class="form-control" ng-model="addUserRequest.user.retypePassword" maxlength="64" alpha-numeric-space required>
+                  <small ng-show="!(addUserRequest.user.password==addUserRequest.user.retypePassword)" class="help-block form-error">Passwords doesn't Match.</small>
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix  vertical-align">
+              <div class="col-md-4">
+                <label class="control-label">Group Name:</label>
+              </div>
+              <div class="col-md-8">
+                <select class="styled-select form-control" ng-model="addUserRequest.user.groupName" ng-options="temp for temp in groupName">
+                </select>               
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix  vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >Address:</label>
+              </div>
+              <div class="col-md-8">
+                 <textarea rows="2" class="form-control" ng-model="addUserRequest.user.address"></textarea> 
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix  vertical-align ">
+              <div class="col-md-4">
+                  <label class="control-label" >Description:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" maxlength="64" ng-model="addUserRequest.user.description" >
+              </div>
+          </div>  
+          <div class="col-md-12 col-pad-fix  vertical-align ">
+              <div class="col-md-4">
+                  <label class="control-label" >Contact Number:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" maxlength="64" ng-model="addUserRequest.user.contactNumber" >
+              </div>
+          </div>  
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-lg"  ng-click="createUser()" ng-disabled=" addForm.$invalid || !(addUserRequest.user.password==addUserRequest.user.retypePassword)"><i class="fa fa-plus" aria-hidden="true"></i> Add User</button>
+          </div>
+        </form>
+        </div>
+    <!-- /.modal-content --> 
+    </div>
+      <!-- /.modal-dialog --> 
+  </div>
+
+   <!--Edit User-->
+    <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div uib-alert ng-class="'alert-' + updateAlerts.type" ng-show="updateAlerts.alert" type="{{updateAlerts.type}}"
+          close="closeUpdateAlert()">{{updateAlerts.msg}}
+          </div>
+          <div class="col-md-12 text-center col-pad-fix" >
+              <div class="progressMsg" text-center ng-show="onUpdate"><i class="fa fa-spinner fa-spin fa-2x"></i>&nbsp;&nbsp;Loading Data
+          </div>
+          </div>
+          <div class="modal-header">          
+            <h4 class="modal-title " id="Heading">Edit User</h4>
+            <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" >&times;</span></button>
+          </div>
+          <form name="editForm">
+          <div class="col-md-12 col-pad-fix  vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >First Name:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" maxlength="64" alpha-numeric-space ng-model="userDataToBeChanged.firstName">
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix  vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >Last Name:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" maxlength="64" alpha-numeric-space ng-model="userDataToBeChanged.lastName">
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix  vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >User Name:</label>
+              </div>
+              <div class="col-md-8">    
+                  <input type="email" class="form-control" maxlength="64" alpha-numeric-space ng-model="userDataToBeChanged.userName" disabled>
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix  vertical-align">
+              <div class="col-md-4">
+                <label class="control-label">Group Name:</label>
+              </div>
+              <div class="col-md-8">
+                <!-- <select class="form-control" ng-model="userDataToBeChanged.groupName" ng-options="temp for temp in groupName" disabled>
+                </select>  -->    
+                <input type="text" class="form-control" ng-model="userDataToBeChanged.groupName" disabled>          
+              </div>
+
+          </div>
+          <!-- <div class="col-md-12 col-pad-fix  vertical-align">
+              <div class="col-md-4">
+                <label class="control-label">Status</label>
+              </div>
+              <div class="col-md-8">
+                <input type="checkbox"  class="check-box" ng-model="userDataToBeChanged.status">
+                <span> {{userDataToBeChanged.status?"Active":"Inactive"}}</span>
+                <label class="switch">
+                  <input type="checkbox" ng-model="userDataToBeChanged.status">
+                  <span class="slider round"></span>
+                </label>     
+              </div>
+          </div> -->
+          <div class="col-md-12 col-pad-fix  vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >Address:</label>
+              </div>
+              <div class="col-md-8">
+                 <textarea rows="2" class="form-control" ng-model="userDataToBeChanged.address"></textarea> 
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix  vertical-align ">
+              <div class="col-md-4">
+                  <label class="control-label" >Description:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" maxlength="64" ng-model="userDataToBeChanged.description" >
+              </div>
+          </div> 
+           <div class="col-md-12 col-pad-fix  vertical-align ">
+              <div class="col-md-4">
+                  <label class="control-label" >Contact Number:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" maxlength="64" ng-model="userDataToBeChanged.contactNumber" >
+              </div>
+          </div>   
+          <br/>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-md" style:"width:100%;" ng-click="updateUser()" ng-disabled="!editForm.$invalid && editForm.$pristine"><span class="glyphicon glyphicon-ok-sign"></span><i class="fa fa-edit" aria-hidden="true"></i> Update User</button>
+          </div>
+        </form>
+        </div>
+      <!-- /.modal-content --> 
+      </div>
+      <!-- /.modal-dialog --> 
+    </div>
+    <!-- / .modal fade -->
+    
+    <!-- Delete Dialog box-->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+    
+      <div class="modal-dialog">
+        <div class="modal-content">
+        <div uib-alert ng-class="'alert-' + delAlerts.type" ng-show="delAlerts.alert" type="{{delAlerts.type}}" close="closeDelAlert()">{{delAlerts.msg}}
+        </div>
+        <div class="col-md-12 text-center col-pad-fix" ng-show="onDelete">
+          <div class="progressMsg"><i class="fa fa-spinner fa-spin fa-2x"></i>&nbsp;&nbsp;Deleting Data
+          </div>
+        </div>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title custom_align" id="Heading">Delete User</h4>
+          </div>
+          <div class="modal-body">           
+            <div class="alert alert-danger">
+            <span class="glyphicon glyphicon-warning-sign"></span>
+             Are you sure you want to delete the user {{ userDataToBeChanged.userName }} ??? </div>           
+          </div>
+          <div class="modal-footer ">
+            <button type="button" class="btn btn-success" ng-click="deleteUser()" ng-disabled="disableDelButton"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+          </div>
+        </div>
+        <!-- /.modal-content --> 
+      </div>
+        <!-- /.modal-dialog --> 
+    </div>
+    <!-- / .modal fade -->
+
+    <!-- Load Modal-->  
+
+</div>

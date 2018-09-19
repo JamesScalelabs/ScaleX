@@ -1,0 +1,390 @@
+/*jslint node: true */
+'use strict';
+var commonModel = {};
+var config = require('../../config/config');
+var mysql_db = require('../../db/mysql_db');
+var query_config = require('../../config/query_config');
+var logger = config.logger;
+var async = require('async');
+var _ = require('lodash');
+var mysqldb = require('mysql');
+
+var con = mysqldb.createConnection({
+        host: "scalelabsdevdb.cababjt98r5d.us-east-1.rds.amazonaws.com",
+        user: "scaleLabsDevDB",
+        password: "scaleLabsDevDB",
+        database : 'my_db'
+});
+
+commonModel.deleteOrder = function(apiname, userName,marketPlace,orderList,modelCallback) {
+	logger.info(userName+ ":common_model:deleteOrder:" + apiname + ":Enter:");
+	var failureResponse = {
+		"responseCode": -1,
+		"response": "",
+		"errorMsg": "DB_ERROR"
+	};
+
+	var sucessResponse = {
+		"responseCode": 0,
+		"response": {},
+		"errorMsg": ""
+	};
+	var sql = query_config.COMMON.DELETE_LAZADA_ORDER;
+	sql = sql+orderList+')';
+	logger.info(userName + ':common_model:deleteOrder:sql: '+sql);
+	con.query(sql,[],function(err, result) {
+                if (err){
+                        logger.error(userName + ':common_model:deleteOrder:' + apiname + ':Error:' + err);
+                        failureResponse.errorMsg = "Error Updating Order";
+			modelCallback(failureResponse);
+                }
+                else
+                {
+			logger.info(userName + ':common_model:deleteOrder:' + apiname + ':Exit:',result);
+                        modelCallback(sucessResponse);
+                }
+        });
+};
+
+commonModel.getMaxUpdateTs = function(apiname, userName,marketPlace,seller,modelCallback) {
+	logger.info(userName+ ":common_model:getMaxUpdateTs:" + apiname + ":Enter:");
+        var failureResponse = {
+                "responseCode": -1,
+                "response": "",
+                "errorMsg": "DB_ERROR"
+        };
+
+        var sucessResponse = {
+                "responseCode": 0,
+                "response": {
+			"updateTs":"",
+		},
+                "errorMsg": ""
+        };
+
+	con.query(query_config.COMMON.MAX_UPDATE_TS,[marketPlace,seller],function (err, result) {
+                if (err){
+                        logger.error(userName + ':common_model:getMaxUpdateTs:' + apiname + ':Error:' + err);
+                        failureResponse.errorMsg = "Error Fetching MAX_UPDATE_TS";
+                        modelCallback(failureResponse);
+                }
+                else {
+                        if (result && result.length > 0) {
+				sucessResponse.response.updateTs=result[0].CREATE_TS;
+				modelCallback(sucessResponse);
+                	}
+			else {
+				failureResponse.errorMsg = "No MAX_UPDATE_TS";
+                       		modelCallback(failureResponse);
+			}
+		}
+	});
+};
+
+commonModel.insertOrder = function(apiname, userName,marketPlace,orders,seller,modelCallback) {
+        logger.info(userName+ ":common_model:insertOrder:" + apiname + ":Enter:");
+        var failureResponse = {
+                "responseCode": -1,
+                "response": "",
+                "errorMsg": "DB_ERROR"
+        };
+
+        var sucessResponse = {
+                "responseCode": 0,
+                "response": {},
+                "errorMsg": ""
+        };
+	for(var i in orders) {
+		logger.info('query_config.COMMON.INSERT_LAZADA_ORDER : '+query_config.COMMON.INSERT_LAZADA_ORDER);
+		con.query(query_config.COMMON.INSERT_LAZADA_ORDER,[orders[i].OrderId,orders[i].CustomerFirstName,orders[i].CustomerLastName,orders[i].OrderNumber,orders[i].PaymentMethod,orders[i].Remarks,orders[i].DeliveryInfo,orders[i].Price,orders[i].GiftOption,orders[i].GiftMessage,orders[i].VoucherCode,orders[i].CreatedAt,orders[i].UpdatedAt,JSON.stringify(orders[i].AddressBilling),JSON.stringify(orders[i].AddressShipping),orders[i].NationalRegistrationNumber,orders[i].ItemsCount,orders[i].PromisedShippingTimes,orders[i].ExtraAttributes,orders[i].Statuses[0],orders[i].Voucher,orders[i].ShippingFee,marketPlace,seller],function(err, result) { 
+		//con.query(query_config.COMMON.INSERT_LAZADA_ORDER,[orders[i].OrderId,orders[i].CustomerFirstName,orders[i].CustomerLastName,orders[i].OrderNumber,orders[i].PaymentMethod,orders[i].Remarks,orders[i].DeliveryInfo],function(err, result) {
+			if (err){
+				logger.error(userName + ':common_model:insertOrder:' + apiname + ':Error:' + err);
+			}
+		});
+	}
+	modelCallback(sucessResponse);
+};
+
+commonModel.getSellerLocalOrder = function(apiname, userName,marketPlace,seller,modelCallback) {
+        logger.info(userName+ ":common_model:getSellerLocalOrder:" + apiname + ":Enter:");
+	var failureResponse = {
+                "responseCode": -1,
+                "response": "",
+                "errorMsg": "DB_ERROR"
+        };
+
+        var sucessResponse = {
+                "responseCode": 0,
+                "response": {},
+                "errorMsg": ""
+        };
+        var sellerOrders = {
+                "totalOrders":"0",
+                "orders" : []
+        };
+	con.query(query_config.COMMON.GETALLSELLER,[seller],function (err, result) {
+                if (err){
+                        logger.error(userName + ':admin_model:getSellerLocalOrder:' + apiname + ':Error:' + err);
+			sucessResponse.response = sellerOrders;
+			modelCallback(sucessResponse);
+                }
+                else {
+                        if (result && result.length > 0) {
+                                for (var i = 0;i < result.length; i++) {
+					sellerOrders.totalOrders=i+1;
+					var order = {};
+					order.id=result[i].ID;
+					order.orderId=result[i].ORDER_ID;
+					order.orderNumber=result[i].ORDER_NUMBER;
+					order.customerFirstName=result[i].CUSTOMER_FIRST_NAME;
+					order.customerLastName=result[i].CUSTOMER_LAST_NAME;
+					order.paymentMethod=result[i].PAYMENT_METHOD;
+					order.remark=result[i].REMARK;
+					order.deliveryInfo=result[i].DELIVERY_INFO;
+					order.price=result[i].PRICE;
+					order.giftOption=result[i].GIFT_OPTION;
+                                        order.giftMessage=result[i].GIFT_MESSAGE;
+					order.voucherCode=result[i].VOUCHER_CODE;
+                                        order.createdAt=result[i].CREATED_AT;
+                                        order.updatedAt=result[i].UPDATED_AT;
+                                        order.addressBilling=result[i].ADDRESS_BILLING;
+					order.addressShipping=result[i].ADDRESS_SHIPPING;
+					order.nationRegNo=result[i].NATIONAL_REG_NO;
+					order.itemCount=result[i].ITEM_COUNT;
+                                        order.promisedShippingCount=result[i].PROMISED_SHIPPING_TIMES;
+                                        order.ExtraAttribute=result[i].EXTRA_ATTRIBUTES;
+                                        order.status=result[i].STATUS;
+                                        order.voucherAmount=result[i].VOUCHER_AMOUNT;
+                                        order.shippingFee=result[i].SHIPPING_FEE;
+					order.marketPlace=result[i].MARKET_PLACE;
+					order.sellerName=result[i].SELLER_NAME;
+					order.shopId=result[i].SHOP_ID;
+					order.productName=result[i].PRODUCT_NAME;
+                                        order.sku=result[i].SKU;
+                                        order.shopSku=result[i].SHOP_SKU;
+                                        order.shippingType=result[i].SHIPPING_TYPE;
+                                        order.itemPrice=result[i].ITEM_PRICE;
+                                        order.paidPrice=result[i].PAID_PRICE;
+                                        order.currency=result[i].CURRENCY;
+                                        order.walletCredit=result[i].WALLET_CREDITS;
+                                        order.taxAmount=result[i].TAX_AMOUNT;
+                                        order.shippingAmount=result[i].SHIPPING_AMOUNT;
+                                        order.shippingServiceCost=result[i].SHIPPING_SERVICE_COST;
+                                        order.shipmentProvider=result[i].SHIPMENT_PROVIDER;
+                                        order.isDigital=result[i].IS_DIGITAL;
+                                        order.digitalDeliveryInfo=result[i].DIGITAL_DELIVERY_INFO;
+                                        order.trackingCode=result[i].TRACKING_CODE;
+                                        order.trackingCodePre=result[i].TRACKING_CODE_PRE;
+                                        order.reason=result[i].REASON;
+                                        order.reasonDetail=result[i].REASON_DETAIL;
+                                        order.purchaseOrderId=result[i].PURCHASE_ORDER_ID;
+                                        order.purachseOrderNum=result[i].PURCHASE_ORDER_NUM;
+                                        order.packageId=result[i].PACKAGE_ID;
+                                        order.shippingProviderType=result[i].SHIPPING_PROVIDER_TYPE;
+                                        order.returnStatus=result[i].RETURN_STATUS;
+                                        order.productMainImage=result[i].PRODUCT_MAIN_IMAGE;
+                                        order.variation=result[i].VARIATION;
+                                        order.productDetailsURl=result[i].PRODUCT_DETAILS_URL;
+                                        order.invoiceNumber=result[i].INVOICE_NUMBER;
+					sellerOrders.orders.push(order);
+                                }
+                        }
+                        sucessResponse.response =sellerOrders;
+			modelCallback(sucessResponse);
+                }
+        });
+};
+	
+commonModel.updateSellerOrderItems = function(apiname,userName,sellerName,OrderItems,modelCallback) {
+        logger.info(userName+ ":common_model:updateSellerOrderItems:" + apiname + ":Enter:");
+        var failureResponse = {
+                "responseCode": -1,
+                "response": "",
+                "errorMsg": "DB_ERROR"
+        };
+
+        var sucessResponse = {
+                "responseCode": 0,
+                "response": {},
+                "errorMsg": ""
+        };
+	con.query(query_config.COMMON.UPDATE_ORDER_INFO,[OrderItems.ShopId,OrderItems.Name,OrderItems.Sku,OrderItems.ShopSku,OrderItems.ShippingType,OrderItems.ItemPrice,OrderItems.PaidPrice,OrderItems.Currency,OrderItems.WalletCredits,OrderItems.TaxAmount,OrderItems.ShippingAmount,OrderItems.ShippingServiceCost,OrderItems.ShipmentProvider,OrderItems.IsDigital,OrderItems.DigitalDeliveryInfo,OrderItems.TrackingCode,OrderItems.TrackingCodePre,OrderItems.Reason,OrderItems.ReasonDetail,OrderItems.PurchaseOrderId,OrderItems.PurchaseOrderNumber,OrderItems.PackageId,OrderItems.ShippingProviderType,OrderItems.ReturnStatus,OrderItems.productMainImage,OrderItems.Variation,OrderItems.ProductDetailUrl,OrderItems.invoiceNumber,OrderItems.OrderId],function (err, result) {});
+	modelCallback(sucessResponse);
+
+};
+
+commonModel.insertAmazonOrder = function(apiname,userName,marketPlace,ords,sellerName,modelCallback) {
+	logger.info(userName+ ":common_model:insertAmazonOrder:" + apiname + ":Enter:");
+	var sucessResponse = {
+                "responseCode": 0,
+                "response": {},
+                "errorMsg": ""
+        };
+	for(var i in ords.listOrdersResult.orders) {
+		for(var j in ords.listOrdersResult.orders[i].orderItem) {
+			logger.info(i," : ",j," : ",ords.listOrdersResult.orders[i].amazonOrderId);
+			
+			var d1 = new Date(ords.listOrdersResult.orders[i].purchaseDate);
+			var d2 = new Date(ords.listOrdersResult.orders[i].lastUpdateDate);
+			var d3 = new Date(ords.listOrdersResult.orders[i].earliestShipDate);
+			var purchaseDateL = 	d1.getFullYear()+"-"+(d1.getMonth()+1)+"-"+d1.getDate()+" "+d1.getHours()+":"+d1.getMinutes()+":"+d1.getSeconds();
+			var lastUpdateDateL = 	d2.getFullYear()+"-"+(d2.getMonth()+1)+"-"+d2.getDate()+" "+d2.getHours()+":"+d2.getMinutes()+":"+d2.getSeconds();
+			var earliestShipDateL = d3.getFullYear()+"-"+(d3.getMonth()+1)+"-"+d3.getDate()+" "+d3.getHours()+":"+d3.getMinutes()+":"+d3.getSeconds();
+			var giftWrapPriceAmountL = "";
+			var orderTotalAmountL = "";
+			var itemPriceAmountL = "";
+			var itemTaxAmountL = "";
+			var itemPriceCurrencyCodeL = "";
+			var shippingPriceAmountL = "";
+			var shippingTaxAmountL = "";
+			if (ords.listOrdersResult.orders[i].orderItem[j].giftWrapPrice != null) {
+				giftWrapPriceAmountL = ords.listOrdersResult.orders[i].orderItem[j].giftWrapPrice.amount;
+			}
+			if (ords.listOrdersResult.orders[i].orderTotal != null) {
+                                orderTotalAmountL = ords.listOrdersResult.orders[i].orderTotal.amount;
+			}
+			if (ords.listOrdersResult.orders[i].orderItem[j].itemPrice != null) { 
+				itemPriceAmountL = ords.listOrdersResult.orders[i].orderItem[j].itemPrice.amount;
+			}
+			if ( ords.listOrdersResult.orders[i].orderItem[j].itemTax != null) {
+				itemTaxAmountL = ords.listOrdersResult.orders[i].orderItem[j].itemTax.amount;
+                        }
+			if ( ords.listOrdersResult.orders[i].orderItem[j].itemPrice != null) {
+				itemPriceCurrencyCodeL = ords.listOrdersResult.orders[i].orderItem[j].itemPrice.currencyCode;
+			}
+			if ( ords.listOrdersResult.orders[i].orderItem[j].shippingPrice != null) {
+				shippingPriceAmountL = ords.listOrdersResult.orders[i].orderItem[j].shippingPrice.amount;
+			}
+			if ( ords.listOrdersResult.orders[i].orderItem[j].shippingTax != null) {
+				shippingTaxAmountL = ords.listOrdersResult.orders[i].orderItem[j].shippingTax.amount;
+			}
+			var l1 = ords.listOrdersResult.orders[i].amazonOrderId;
+			var l2 = ords.listOrdersResult.orders[i].buyerName;
+			var l3 = ords.listOrdersResult.orders[i].amazonOrderId;
+			var l4 = ords.listOrdersResult.orders[i].paymentMethod;
+			var l5 = ords.listOrdersResult.orders[i].orderItem[j].giftMessageText;
+			var l6 = JSON.stringify(ords.listOrdersResult.orders[i].shippingAddress);
+			var l7 = ords.listOrdersResult.orders[i].orderItem[j].quantityOrdered;
+			con.query(query_config.COMMON.INSERT_AMAZON_ORDER,[l1,l2,'',l3,l4,'','0',orderTotalAmountL,'0',l5,'',purchaseDateL,lastUpdateDateL,l6,l6,'',l7,earliestShipDateL,ords.listOrdersResult.orders[i].orderStatus,shippingPriceAmountL,sellerName,ords.listOrdersResult.orders[i].orderItem[j].title,ords.listOrdersResult.orders[i].orderItem[j].sellerSKU,ords.listOrdersResult.orders[i].orderItem[j].sellerSKU,ords.listOrdersResult.orders[i].shipServiceLevel,itemPriceAmountL,itemPriceAmountL,itemPriceCurrencyCodeL,itemTaxAmountL,shippingPriceAmountL,shippingTaxAmountL,'0',ords.listOrdersResult.orders[i].orderItem[j].asin,ords.listOrdersResult.orders[i].orderItem[j].orderItemId,ords.listOrdersResult.orders[i].shipmentServiceLevelCategory,ords.listOrdersResult.orders[i].orderItem[j].invoiceData,giftWrapPriceAmountL,marketPlace],function(err, result) {
+				if (err){
+					logger.error(userName + ':common_model:insertAmazonOrder:' + apiname + ':Error:' + err);
+				}
+			});
+		}
+	}
+	modelCallback(sucessResponse);
+};
+
+commonModel.insertElevenStreetOrder = function(apiname,userName,marketPlace,responseJson,sellerName,modelCallback) {
+	logger.info(userName+ ":common_model:insertElevenStreetOrder:" + apiname + ":Enter:");
+	logger.info("responseJson : ",JSON.stringify(responseJson));
+	var sucessResponse = {
+                "responseCode": 0,
+                "response": {},
+                "errorMsg": ""
+        };
+	for(var i in responseJson.orders.order ) {
+		var orderNumber = responseJson.orders.order[i].ordNo[0];
+		var shippingFee = responseJson.orders.order[i].lstDlvCst[0];
+                var shippingNo 	= responseJson.orders.order[i].dlvNo[0];
+		var buyerEmail 	= responseJson.orders.order[i].ordEmail[0];
+		var buyerNo  = responseJson.orders.order[i].memNo[0];
+		var totalAmount = responseJson.orders.order[i].ordAmt[0];
+		var orderDate = responseJson.orders.order[i].ordDt[0];
+		var buyerName = responseJson.orders.order[i].ordNm[0];
+		var totalAmountAllProd = responseJson.orders.order[i].ordPayAmt[0];
+		var buyerPhoneNo = responseJson.orders.order[i].ordPrtblTel[0];
+                var ordQty = responseJson.orders.order[i].ordQty[0];
+		var productName = responseJson.orders.order[i].prdNm[0];
+		var productNum = responseJson.orders.order[i].prdNo[0];
+                var buyerAddress = responseJson.orders.order[i].rcvrBaseAddr[0];
+                var buyerAddressPincode = responseJson.orders.order[i].rcvrMailNo[0];
+		var sellerPrice = responseJson.orders.order[i].selPrc[0];
+		var sellerDiscount = responseJson.orders.order[i].sellerDscPrc[0];
+                var sellerProductNum = responseJson.orders.order[i].sellerPrdCd[0];
+                var basicDiscount = responseJson.orders.order[i].lstTmallDscPrc[0];
+                var cancelledQuantity = responseJson.orders.order[i].ordCnQty[0];
+		var sku = responseJson.orders.order[i].partCode[0];
+		con.query(query_config.COMMON.INSERT_ELEVEN_STATES_ORDER,[orderNumber,buyerName,buyerName,orderNumber,'paymentComplete','','',sellerPrice,'','','',orderDate,orderDate,buyerAddress+", pin code : "+buyerAddressPincode+", ph no: "+buyerPhoneNo,buyerAddress+", pin code : "+buyerAddressPincode+", ph no: "+buyerPhoneNo,'',ordQty,'','paymentComplete',shippingFee,sellerName,productName,sku,sku,'',totalAmount,totalAmount,'MYR','',shippingFee,'','0',orderNumber,orderNumber,'','','',marketPlace],function(err, result) {
+			if (err){
+				logger.error(userName + ':common_model:insertElevenStreetOrder:' + apiname + ':Error:' + err);
+			}
+		});
+	}
+	modelCallback(sucessResponse);
+};
+
+commonModel.insertElevenStreetOrderSeller = function(apiname,userName,marketPlace,responseJson,sellerName,modelCallback) {
+        logger.info(userName+ ":common_model:insertElevenStreetOrder:" + apiname + ":Enter:");
+        logger.info("responseJson : ",JSON.stringify(responseJson));
+        var sucessResponse = {
+                "responseCode": 0,
+                "response": {},
+                "errorMsg": ""
+        };
+        for(var i in responseJson.orders.order ) {
+                var orderNumber = responseJson.orders.order[i].ordNo[0];
+                var shippingFee = responseJson.orders.order[i].dlvCst[0];
+                var shippingNo  = responseJson.orders.order[i].dlvNo[0];
+                var buyerEmail  = responseJson.orders.order[i].ordEmail[0];
+                var buyerNo  = responseJson.orders.order[i].memNo[0];
+                var totalAmount = responseJson.orders.order[i].ordAmt[0];
+                var orderDate = responseJson.orders.order[i].ordDt[0];
+                var buyerName = responseJson.orders.order[i].ordNm[0];
+                var totalAmountAllProd = responseJson.orders.order[i].ordPayAmt[0];
+                var buyerPhoneNo = responseJson.orders.order[i].ordPrtblTel[0];
+                var ordQty = responseJson.orders.order[i].ordQty[0];
+                var productName = responseJson.orders.order[i].prdNm[0];
+                var productNum = responseJson.orders.order[i].prdNo[0];
+                var buyerAddress = responseJson.orders.order[i].rcvrBaseAddr[0];
+                var buyerAddressPincode = responseJson.orders.order[i].rcvrMailNo[0];
+                var sellerPrice = responseJson.orders.order[i].selPrc[0];
+                var sellerDiscount = responseJson.orders.order[i].sellerDscPrc[0];
+                var sellerProductNum = responseJson.orders.order[i].sellerPrdCd[0];
+                var basicDiscount = responseJson.orders.order[i].lstTmallDscPrc[0];
+                var cancelledQuantity = responseJson.orders.order[i].ordCnQty[0];
+                var sku = responseJson.orders.order[i].partCode[0];
+                con.query(query_config.COMMON.INSERT_ELEVEN_STATES_ORDER,[orderNumber,buyerName,buyerName,orderNumber,'paymentComplete','','',sellerPrice,'','','',orderDate,orderDate,buyerAddress+", pin code : "+buyerAddressPincode+", ph no: "+buyerPhoneNo,buyerAddress+", pin code : "+buyerAddressPincode+", ph no: "+buyerPhoneNo,'',ordQty,'','paymentComplete',shippingFee,sellerName,productName,sku,sku,'',totalAmount,totalAmount,'MYR','',shippingFee,'','0',orderNumber,orderNumber,'','','',marketPlace],function(err, result) {
+                        if (err){
+                                logger.error(userName + ':common_model:insertElevenStreetOrder:' + apiname + ':Error:' + err);
+                        }
+                });
+        }
+        modelCallback(sucessResponse);
+};
+
+commonModel.insertSearsSellerOrder = function(apiname,userName,marketPlace,responseJson,sellerName,modelCallback) {
+	logger.info(userName+ ":common_model:insertSearsSellerOrder:" + apiname + ":Enter:");
+        logger.info("responseJson : ",JSON.stringify(responseJson));
+	var sucessResponse = {
+                "responseCode": 0,
+                "response": {},
+                "errorMsg": ""
+        };
+	for(var i in responseJson ) {
+		//logger.info(i+" -----------> "+responseJson[i]['po-number-with-date'][0]);
+		logger.info(i+" Inserting sears seller order "+responseJson[i]['po-number-with-date'][0]);
+		var orderNumber = responseJson[i]['po-number-with-date'][0];
+                var shippingFee = responseJson[i]['po-line][0]['po-line-header'][0]['shipping-and-handling'][0]
+                var buyerEmail  = responseJson[i]['customer-email'][0];
+                var totalAmount = responseJson[i]['balance-due'][0];
+                var orderDate = responseJson[i]['po-date'][0]+" "+['po-time'][0]
+                var buyerName = responseJson[i][customer-name][0];
+                var ordQty = responseJson[i][po-shipment-info][0][shipment][0][ship-method][0][po-line-header][0][order-quantity][0];
+                var productName = responseJson[i][po-line][0][po-line-header][0][item-name][0];
+                var productNum = responseJson[i][po-line][0][po-line-header][0][order-quantity][0];
+                var buyerAddress = responseJson[i][shipping-detail][0];
+                var sellerPrice = responseJson[i][balance-due][0];
+		var expectedShippingDate = responseJson[i][expected-ship-date][0];
+		var shipmentTrackingNumber = responseJson[i][po-shipment-info][0][shipment][0][shipment-tracking-number][0];
+		var shipMethod = responseJson[i][po-shipment-info][0][shipment][0][ship-method][0];
+		var status = responseJson[i]['po-status'][0];
+		con.query(query_config.COMMON.INSERT_SEARS_ORDER,[orderNumber,buyerName,orderNumber,totalAmount,orderDate,orderDate,buyerAddress,buyerAddress,ordQty,expectedShippingDate,status,shippingFee,marketPlace,sellerName,productName,shipMethod,sellerPrice,shippingFee,shipmentTrackingNumber,productNum,orderNumber,buyerEmail],function(err, result) {
+			logger.error(userName + ':common_model:insertSearsSellerOrder:' + apiname + ':Error:' + err);
+		});
+	}
+	modelCallback(sucessResponse);
+};
+
+module.exports = commonModel;

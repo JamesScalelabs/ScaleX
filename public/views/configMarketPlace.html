@@ -1,0 +1,264 @@
+<div> 
+<div class="content-wrapper">
+     
+    <div class="container-fluid">
+      <div uib-alert ng-class="'alert-' + alerts.type" ng-show="alerts.alert" type="{{alerts.type}}"
+    close="closeAlert()">{{alerts.msg}}
+    </div>
+    <div class="col-md-12 text-center col-pad-fix" ng-show="onGetMP">
+      <div class="progressMsg"><i class="fa fa-spinner fa-spin fa-2x"></i>Loading data</div>
+    </div> 
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li>You are here: &nbsp;</li>
+        <li class="breadcrumb-item">
+          <a href="#/">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Configure MarketPlaces</li>
+      </ol>
+     
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-fw fa-cogs"></i> Market Place List</div>
+        <div class="card-body">
+          <div class="clearfix"><div class="pull-right">
+          <button type="button" class="btn btn-primary btn-md " data-title="AddMP" data-toggle="modal" data-target="#addMP" ng-click="clearData()"><i class="fa fa-plus" aria-hidden="true"></i> Add Market Place</button>
+        </div></div>
+      <div ui-grid="availableMPGrid" ui-grid-selection ui-grid-pagination ui-grid-resize-columns  ui-grid-auto-resize class="grid">
+        
+      </div>  
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+      </div>
+    </div>
+    <!-- /.container-fluid-->
+    </div>
+    <!-- /.content-wrapper-->
+    <footer class="sticky-footer">
+      <div class="container">
+        <div class="text-center">
+          <small>Copyright © Scale Labs</small>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+<!-- Add Market Place -->
+ <div class="modal fade" id="addMP" role="dialog" aria-labelledby="add" aria-hidden="true">    
+      <div class="modal-dialog">      
+        <div class="modal-content">
+         <div uib-alert ng-class="'alert-' + addAlerts.type" ng-show="addAlerts.alert" type="{{addAlerts.type}}"
+          close="closeAddAlert()">{{addAlerts.msg}}
+          </div>
+
+          <div class="col-md-12 text-center col-pad-fix" ng-show="true">
+              <div class="progressMsg" text-center ng-show="onCreate"><i class="fa fa-spinner fa-spin fa-2x"></i>&nbsp;&nbsp; Creating Market Place....
+            </div>
+          </div>
+          
+          <div class="modal-header">          
+            <h4 class="modal-title " id="Heading">Add Market Place</h4>
+            <button type="button" class="close" data-dismiss="modal" ><span class="glyphicon glyphicon-remove" >&times;</span></button>
+          </div>
+          <form name="marketForm">
+          <div class="col-md-12 col-pad-fix configure-data vertical-align">
+
+              <div class="col-md-4">
+                  <label class="control-label" >Market Place:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control"   alpha-numeric-space ng-model="createMPRequest.marketPlace.marketPlace">
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix configure-data vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >EPR - New Catalogue:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control"  ng-model="createMPRequest.marketPlace.newCatEPR">
+              </div>
+          </div>          
+          <div class="col-md-12 col-pad-fix configure-data vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >EPR - Update Catalogue:</label>
+              </div>
+              <div class="col-md-8">    
+                  <input type="text" class="form-control"  ng-model="createMPRequest.marketPlace.updateCatEPR" >
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix configure-data vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >EPR - Update Price:</label>
+              </div>
+              <div class="col-md-8">    
+                  <input type="text" class="form-control"  ng-model="createMPRequest.marketPlace.updatePriceEPR" >
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix configure-data vertical-align ">
+              <div class="col-md-4">
+                  <label class="control-label" >EPR - Get Order:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" ng-model="createMPRequest.marketPlace.getOrderEPR">
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix configure-data vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >New Catalogue Location:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control"  ng-model="createMPRequest.marketPlace.newCatLoc" >
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix configure-data vertical-align ">
+              <div class="col-md-4">
+                  <label class="control-label" >Update Catalogue Location:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control"   ng-model="createMPRequest.marketPlace.updateCatLoc" >
+              </div>
+          </div>  
+          <div class="col-md-12 col-pad-fix configure-data vertical-align ">
+              <div class="col-md-4">
+                  <label class="control-label" >Update Price Location:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control"   ng-model="createMPRequest.marketPlace.updatePriceLoc" >
+              </div>
+          </div>
+        
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-lg"  ng-click="createMP()" ng-disabled="!marketForm.$invalid && marketForm.$pristine"><i class="fa fa-plus" aria-hidden="true"></i>  Add Market Place</button>
+          </div>
+          </form>
+        </div>
+    <!-- /.modal-content --> 
+    </div>
+      <!-- /.modal-dialog --> 
+  </div>
+
+   <!--Edit Market Place-->
+    <div class="modal fade" id="editMP" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div uib-alert ng-class="'alert-' + updateAlerts.type" ng-show="updateAlerts.alert" type="{{updateAlerts.type}}"
+          close="closeUpdateAlert()">{{updateAlerts.msg}}
+          </div>
+          <div class="col-md-12 text-center col-pad-fix" >
+              <div class="progressMsg" text-center ng-show="onUpdate"><i class="fa fa-spinner fa-spin fa-2x"></i>&nbsp;&nbsp;Updating Market Place...
+          </div>
+          </div>
+          <div class="modal-header">          
+            <h4 class="modal-title " id="Heading">Edit Market Place</h4>
+            <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove" >&times;</span></button>
+          </div>
+          <div class="col-md-12 col-pad-fix configure-data vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >Market Place:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" ng-model="mpToBeChanged.marketPlace" disabled>
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix configure-data vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >Status:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="checkbox" class="check-box" ng-model="mpToBeChanged.status">
+                  <span> {{mpToBeChanged.status?"Active":"Inactive"}}</span>
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix configure-data vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >EPR - New Catalogue:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" ng-model="mpToBeChanged.updateCatEPR">
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix configure-data vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >EPR - Update Price:</label>
+              </div>
+              <div class="col-md-8">    
+                  <input type="text" class="form-control"  ng-model="mpToBeChanged.updatePriceEPR" >
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix configure-data vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >EPR - Get Order:</label>
+              </div>
+              <div class="col-md-8">    
+                  <input type="text" class="form-control"  ng-model="mpToBeChanged.getOrderEPR" >
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix configure-data vertical-align">
+              <div class="col-md-4">
+                  <label class="control-label" >New Catalogue Location:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" ng-model="mpToBeChanged.newCatLoc" >
+              </div>
+          </div>
+          <div class="col-md-12 col-pad-fix configure-data vertical-align ">
+              <div class="col-md-4">
+                  <label class="control-label" >Update Catalogue Location:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" ng-model="mpToBeChanged.updateCatLoc" >
+              </div>
+          </div>  
+          <div class="col-md-12 col-pad-fix configure-data vertical-align ">
+              <div class="col-md-4">
+                  <label class="control-label" >Update Price Location:</label>
+              </div>
+              <div class="col-md-8">
+                  <input type="text" class="form-control" ng-model="mpToBeChanged.updatePriceLoc" >
+              </div>
+          </div>
+          <br/>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-lg" style:"width:100%;" ng-click="updateMP()" ng-disabled="disableUpdateButton"><span class="glyphicon glyphicon-ok-sign"></span>Update Market Place</button>
+          </div>
+        </div>
+      <!-- /.modal-content --> 
+      </div>
+      <!-- /.modal-dialog --> 
+    </div>
+    <!-- / .modal fade -->
+    
+    <!-- Delete Dialog box-->
+    <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
+    
+      <div class="modal-dialog">
+        <div class="modal-content">
+        <div uib-alert ng-class="'alert-' + delAlerts.type" ng-show="delAlerts.alert" type="{{delAlerts.type}}" close="closeDelAlert()">{{delAlerts.msg}}
+        </div>
+        <div class="col-md-12 text-center col-pad-fix" ng-show="onDelete">
+          <div class="progressMsg"><i class="fa fa-spinner fa-spin fa-2x"></i>&nbsp;&nbsp;Deleting Market Place
+          </div>
+        </div>
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title custom_align" id="Heading">Delete Market Place</h4>
+          </div>
+          <div class="modal-body">           
+            <div class="alert alert-danger">
+            <span class="glyphicon glyphicon-warning-sign"></span>
+             Are you sure you want to delete Market Place - <strong>{{ mpToBeChanged.marketPlace }} ???</strong> </div>           
+          </div>
+          <div class="modal-footer ">
+            <button type="button" class="btn btn-success" ng-click="deleteMP()" ng-disabled="disableDelButton"><span class="glyphicon glyphicon-ok-sign"></span> Yes</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> No</button>
+          </div>
+        </div>
+        <!-- /.modal-content --> 
+      </div>
+        <!-- /.modal-dialog --> 
+    </div>
+    <!-- / .modal fade -->
+
+</div>

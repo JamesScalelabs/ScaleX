@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>Scale Labs Smart Seller</title>
+  <!-- Bootstrap core CSS-->
+  <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+  <!-- UI-GRID CSS -->
+  <link href="vendor/ui-grid/release/ui-grid.css" rel="stylesheet" type="text/css" href="">
+  <!-- Custom fonts for this template-->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Page level plugin CSS-->
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet" type="text/css"> 
+
+  <link href="css/app.css" rel="stylesheet" type="text/css" href="">
+
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+  <!-- Navigation-->
+       
+       <div ng-include src="'views/navbar.html'">        
+       </div>
+
+      
+
+      <div class="page" ng-view ng-cloak>
+        
+      </div>
+
+
+     
+ 
+    <!-- Angular JavaScript-->
+    <script src="vendor/angular/angular.min.js"></script>
+    <script src="vendor/angular/angular-route.min.js"></script>
+    <script src="vendor/angular/angular-local-storage.js"></script> 
+
+    <!-- UI Grid & UI bootstrap-->
+    <script src="vendor/ui-bootstrap/ui-bootstrap-tpls-2.2.0.js"></script> 
+    <script src="vendor/ui-grid/release/ui-grid.js"></script> 
+      
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+   
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script> 
+    <script src="vendor/lodash/lodash.js"></script>
+    
+    <script src="app/app.js"></script>
+    <script src="config/route.js"></script>
+    <script src="config/localStorage.js"></script>
+
+    <!-- HomeController JS Files-->
+    <script src="app/home/home.js"></script>
+    <script src="app/home/controllers/mainController.js"></script>
+    <script src="app/home/controllers/navController.js"></script>
+    <script src="app/home/services/httpInterceptor.js"></script>
+    <script src="app/home/services/mainService.js"></script>  
+    <script src="app/home/services/validationService.js"></script>   
+
+    <!-- UserManagementController JS Files-->
+    <script src="app/userManagement/userManagement.js"></script>
+    <script src="app/userManagement/controllers/mainController.js"></script>
+    <script src="app/userManagement/services/mainService.js"></script>  
+
+    <!-- Allocate Seller JS Files-->
+    <script src="app/allocateSellers/allocateSellers.js"></script>
+    <script src="app/allocateSellers/controllers/mainController.js"></script>
+    <script src="app/allocateSellers/services/mainService.js"></script> 
+
+     <!-- Allocate Seller JS Files-->
+    <script src="app/configureMarketPlace/configureMarketPlace.js"></script>
+    <script src="app/configureMarketPlace/controllers/mainController.js"></script>
+    <script src="app/configureMarketPlace/services/mainService.js"></script>  
+        
+</body>
+
+</html>

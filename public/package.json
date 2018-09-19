@@ -1,0 +1,23 @@
+{
+  "name": "scale-labs",
+  "version": "1.0.0",
+  "description": "This is a one page application used to mangage multiple market places in E-commerce.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\"git\""
+  },
+  "keywords": [
+    "scale",
+    "labs",
+    "e-commerce"
+  ],
+  "author": "Arun Raju",
+  "license": "ISC",
+  "dependencies": {
+    "angular-chart.js": "^1.1.1"
+  }
+}

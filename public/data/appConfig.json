@@ -1,0 +1,48 @@
+{   
+    "restServer": "http://18.220.117.145:3000/",
+    "responseTimeout": 60,
+    "restApis": {
+        "LOGIN":"login",
+        "LOGOUT":"logout",
+        "RESET_PASSWORD":"resetPassword",
+
+        "GET_ALL_USERS":"getAllUsers",
+        "CREATE_USER":"createUser",
+        "UPDATE_USER_DETAILS":"updateUserDetails",
+        "DELETE_USER":"deleteUser",        
+        "ENABLE_USER":"enableUser",
+        "DISABLE_USER":"disableUser",
+
+        "GET_ALL_MP":"getMarketPlaces",
+        "CREATE_MP":"createMarketPlace",
+        "UPDATE_MP_DETAILS":"updateMarketPlace",
+        "DELETE_MP":"deleteMarketPlace",
+        
+        "GET_MANAGER_ROLE":"getManagerRole",
+        "GET_ALLOCATED_SELLERS":"getAllocateSeller",
+        "ALLOCATE_SELLER":"allocateSeller",
+
+        "GET_SELLER_ORDERS":"getSellerOrders",
+        "SYNC_SELLER_ORDERS": "syncSellerOrders",
+        "GET_SELLER_ORDERS_COUNT": "getSellerOrdersCount",
+
+        "UPLOAD_PRODUCT": "uploadSellerProduct",
+        "MANAGER_UPLOAD_PRODUCT": "uploadProductMarket",
+        "GET_ALL_PRODUCTS": "getAllProducts",
+
+        "UPLOAD_PRODUCT_LAZADA": "uploadProductLazada",
+
+        "TRACK_ORDER" : "trackOrder",
+
+        "GET_STOCK_DETAILS" : "getMarketPlaceOrders",
+        "GET_SALES_OR_ORDERS_GRAPH" : "getSalesOrOrdersGraph",
+        "GET_SALES_OR_ORDERS_REPORT" : "getSalesOrOrdersReport",
+	    "DOWNLOAD_INVOICE" : "getInvoiceTemplet",
+
+        "GET_PRODUCT_LEVEL_INVENTORY_REPORT":"getProductLevelInventoryReport",
+        "GET_TOP_PRODUCTS_SOLD" : "getTopProductsSold",
+        "GET_PRODUCT_EXCEL" : "getProductExcel",
+        "UPDATE_PRODUCT_EXCEL" : "updateProduct",
+        "GET_PRODUCT_FILE" : "getProductFile"
+    }
+}

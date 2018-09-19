@@ -1,0 +1,32 @@
+<div class="content-wrapper">
+    <div class="col-md-12">
+          <strong>User Management</strong>
+        </div>  
+             <div class="col-md-12 col-pad-fix vertical-align">         
+         <div class="col-md-9 col-pad-fix configure-data vertical-align">    
+              <div class="col-md-5">
+                  <label class="control-label" ng-class="{'text-muted': disableFields}">Availabe Users</label>        
+                  <select multiple class="form-control" ng-disabled="disableFields" ng-model="availableDataModel" ng-options="data.id as data.value for data in configure[0].availableData | filter:filterPackages | orderBy:'value'"></select>
+              </div>
+              <div class="col-md-2 text-center">
+                  <button class="btn btn-default" ng-click="addToSelected()" ng-disabled="!availableDataModel || availableDataModel.length <= 0 || disableFields"><i class="fa fa-angle-right"></i></button>
+                  <button class="btn btn-default" ng-click="removeFromSelected()" ng-disabled="!selectedDataModel || selectedDataModel <= 0 || disableFields"><i class="fa fa-angle-left"></i></button>
+                  <button class="btn btn-default" ng-disabled="disableFields" ng-click="addAll()"><i class="fa fa-angle-double-right"></i></button>
+                  <button class="btn btn-default" ng-disabled="disableFields" ng-click="removeAll()"><i class="fa fa-angle-double-left"></i></button>
+              </div>
+              <div class="col-md-4">
+                  <label class="control-label" ng-class="{'text-muted': disableFields}">Selected Users</label>
+                  <select multiple class="form-control" ng-model="selectedDataModel" ng-disabled="disableFields" ng-options="data.id as data.value for data in configure[0].selectedData | orderBy:'value'"></select>
+              </div>
+          </div>  
+          </div>   
+<br/><br/>  
+<center>
+    <button class="btn btn-danger btn-width " ng-click="cancel()">Cancel</button>
+    
+    <button class="btn btn-primary btn-width" ng-click="allocateSellers()">Submit</button>
+
+</center>
+
+</div>
+  

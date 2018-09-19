@@ -1,0 +1,449 @@
+
+body{
+  
+    font-size: 15px;
+   background:  url('../assets/images/ecommerce.jpg') no-repeat center top fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #666;
+}
+
+h1 {
+  font-size: 20px
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.configure-data div:nth-child(2) {
+    padding-top: 15px;
+}
+.configure-data button {
+    width: 80px;    
+    margin-top:5px;
+}
+.configure-data button:nth-child(2) {
+    margin-bottom: 10px;
+}
+.configure-data select {
+    height:250px;
+}
+
+.form-control {
+    font-size: 13px;
+    
+    color:#090c0c;
+}
+select.form-control:not([size]):not([multiple]) {
+  height: 35px
+}
+
+/*Customized Modal CSS*/
+.alert-dismissible .close{
+  top:-20px;
+}
+
+
+/*End of Customized Modal CSS*/
+
+
+
+
+/* Start of UI Grid custom Styles */
+/* ui-grid 3.0.6 fixes */
+.ui-grid-tree-header-row {
+    font-weight: normal !important;
+}
+/*.ui-grid, .ui-grid-viewport {
+  height: auto !important;
+  min-height: 145px;
+}*/
+.ui-grid-pager-panel {
+     position: unset; 
+     padding-top: 0; 
+     padding-bottom: 0; 
+     background: #f3f5f5 none repeat scroll 0 0;    
+}
+.ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
+    background-color: #a7a9b3;
+    color: #f1f0f8;
+}
+.ui-grid-pager-count-container {
+    float: left;
+    margin-top: 4px;
+    min-width: 50px;
+}
+
+.ui-grid-pager-container {
+    float: right;
+}
+
+.ui-grid-pager-control {
+    margin-right: 10px;
+    margin-left: 10px;
+    min-width: 135px;
+    float: right;
+}
+
+.ui-grid-pager-row-count-picker {
+    float: right;
+}
+
+.ui-grid-top-panel {
+    font-weight: 600;
+}
+.ui-grid-pager-control button {
+    background-color: #fff;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+} 
+.ui-grid-pager-control .first-bar {
+    border-left: 2px solid #2464a7;
+    height: 12px;
+    margin-left: -3px;
+    margin-top: -6px;
+    width: 10px;
+}
+.ui-grid-pager-control .first-triangle {
+    border-color: transparent #2464a7 transparent transparent;
+    border-style: solid;
+    border-width: 4px 7.7px 4px 0;
+    height: 0;
+    margin-left: 2px;
+    width: 0;
+}
+
+.ui-grid-pager-control .last-triangle {
+    border-color: transparent transparent transparent #2464a7;
+    border-style: solid;
+    border-width: 4px 0 4px 7.7px;
+    height: 0;
+    margin-left: -1px;
+    width: 0;
+}
+.ui-grid-pager-control .last-bar {
+    border-left: 2px solid #2464a7;
+    height: 12px;
+    margin-left: 1px;
+    margin-top: -6px;
+    width: 10px;
+}
+
+.ui-grid-pager-container {
+   
+    padding-top: 3px;
+}
+
+.ui-grid{
+border-radius: 3px;}
+
+.ui-grid-pager-control button {
+    background-color: #fff;
+    border: 1px solid cccece;
+    height: 22px;
+    min-width: 25px;
+    padding: 3px 6px 3px 9px;
+  
+}
+
+.ui-grid-pager-control input {
+    background-color: #ffffff;
+    border: 1px solid #cccece;
+    font-size: 12px;
+    height: 22px;
+    line-height: 1.5;
+    padding: 2px 10px;    
+}
+
+.ui-grid-pager-row-count-picker select {
+   
+    border: 1px solid #cccece;
+    height: 22px;
+    padding: 2px 10px;
+}
+
+.ui-grid-menu-button {    
+    border-width: 0 0 1px 1px;
+    height: 30px;    
+} 
+
+input,
+button,
+select,
+optgroup,
+textarea {
+  margin: 5px;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.icon-edit{
+    font-size: 12px;
+    padding:0.1rem 0.4rem;
+}
+
+
+/* End of UI Grid custom Styles */
+
+
+
+/*Drop down custom style*/
+
+.styled-select select {
+  overflow: hidden;
+   width: 180px;
+   font-size: 14px;
+   height: 29px;
+   padding: 5px; /* If you add too much padding here, the options won't show in IE */
+   width: 180px;
+
+}
+
+
+.ui-grid-cell-contents{
+  font-size: 14px;
+}
+
+.progressMsg {
+    margin-top: 0;
+    padding: 0px 10px 10px 0px;
+}
+
+.btn{
+    font-size: 14px;    
+}
+
+
+
+
+.switch {
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 25px;
+
+  margin: 2px auto 0
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #28a745;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(12px);
+  -ms-transform: translateX(12px);
+  transform: translateX(12px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+/* Refactoring the UI Design*/
+.nav-brand{
+
+}
+
+
+/* UI Grid Data to appear in middle*/
+.ui-grid-vcenter div {
+  text-align:center;
+  position: relative;
+  top: 50%;
+   -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.aller-bold-10  {
+  font-size:3vw !important;
+  font-weight: bold;
+  font-family: "Aller Bold" !important;
+   color : white;
+}
+
+.aller-light-7 {
+  font-size:2.12vw !important;
+  font-family: "Aller Light" !important;
+   color : white;
+}
+
+.aller-light-10 {
+  font-size:3vw !important;
+  font-family: "Aller Light" !important;
+  color : white;
+
+}
+
+.clearfix{*zoom:1;}.clearfix:before,.clearfix:after{display:table;content:"";line-height:0;}
+.clearfix:after{clear:both;}
+.hide-text{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;}
+.input-block-level{display:block;width:100%;min-height:30px;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;}
+.btn-file{overflow:hidden;position:relative;vertical-align:middle;}.btn-file>input{position:absolute;top:0;right:0;margin:0;opacity:0;filter:alpha(opacity=0);transform:translate(-300px, 0) scale(4);font-size:23px;direction:ltr;cursor:pointer;}
+.fileupload{margin-bottom:9px;}.fileupload .uneditable-input{display:inline-block;margin-bottom:0px;vertical-align:middle;cursor:text;}
+.fileupload .thumbnail{overflow:hidden;display:inline-block;margin-bottom:5px;vertical-align:middle;text-align:center;}.fileupload .thumbnail>img{display:inline-block;vertical-align:middle;max-height:100%;}
+.fileupload .btn{vertical-align:middle;}
+.fileupload-exists .fileupload-new,.fileupload-new .fileupload-exists{display:none;}
+.fileupload-inline .fileupload-controls{display:inline;}
+.fileupload-new .input-append .btn-file{-webkit-border-radius:0 3px 3px 0;-moz-border-radius:0 3px 3px 0;border-radius:0 3px 3px 0;}
+.thumbnail-borderless .thumbnail{border:none;padding:0;-webkit-border-radius:0;-moz-border-radius:0;border-radius:0;-webkit-box-shadow:none;-moz-box-shadow:none;box-shadow:none;}
+.fileupload-new.thumbnail-borderless .thumbnail{border:1px solid #ddd;}
+.control-group.warning .fileupload .uneditable-input{color:#a47e3c;border-color:#a47e3c;}
+.control-group.warning .fileupload .fileupload-preview{color:#a47e3c;}
+.control-group.warning .fileupload .thumbnail{border-color:#a47e3c;}
+.control-group.error .fileupload .uneditable-input{color:#b94a48;border-color:#b94a48;}
+.control-group.error .fileupload .fileupload-preview{color:#b94a48;}
+.control-group.error .fileupload .thumbnail{border-color:#b94a48;}
+.control-group.success .fileupload .uneditable-input{color:#468847;border-color:#468847;}
+.control-group.success .fileupload .fileupload-preview{color:#468847;}
+.control-group.success .fileupload .thumbnail{border-color:#468847;}
+
+
+
+.progress-bar {height: 1.5rem; font-size : 15px; color:black;}
+.stockBlockContainer {margin-bottom: 20px}
+.stockBlock {border:1px solid #ccc}
+.stockBlock h3 {border-bottom: 1px solid #ccc; font-size:15px; text-align: center; padding: 20px 0; color: #fff; background: #929398; position: relative;}
+.stockBlock p {margin-bottom: 0; padding: 10px; font-size: 13px;  border-bottom:1px solid #ccc}
+.stockBlock p.last {border-bottom: 0}
+.stockBlock label {width: 86px; display: inline-block; margin-bottom: 0}
+.stockBlock .notedClr {width: 20px; height: 20px; display: inline-block; border:2px solid #fff; left: 10px; top:40%; position: absolute;}
+.stockBlock i {
+      position: absolute;
+    right: 0;
+    font-size: 48px;
+    top: 11px;
+    opacity: 0.3;
+}
+.detailsBox {
+  text-align: center;
+  font-size: 13px;
+}
+.detailsBox  i {
+      position: absolute;
+    right: 20px;
+    font-size: 48px;
+    top: 10px;
+    opacity: 0.3;
+}
+.detailsBox h4 { border:1px solid #ccc; border-bottom: 0; font-size: 14px; margin-bottom: 0 ; padding: 20px 0; background: #929398; color: #fff}
+.detailsBox table {width: 100%}
+.detailsBox td {border:1px solid #ccc; padding: 10px}
+
+.breadcrumb {border-bottom: 1px solid #e9ecef; background: #fff}
+.breadcrumb li {font-size: 13px; float: left;}
+.lineChart {margin-bottom: 40px}
+.card-header {color:#000; background: none; font-weight: bold; font-size: 18px}
+.card {border:none;}
+.btn-normal {background: #132b94; border: #132b94; cursor: pointer; color: #fff !important}
+.btn-normal:hover {background: #132b94}
+
+.gridtopRow {margin-bottom: 20px}
+.gridtopRow .nopad {padding-left: 0}
+.shipPro {margin-right: 20px}
+.card-bodyNoLeftRightPad {padding:10px 0}
+.downTmp {padding-top: 10px}
+.inputNomargin {margin: 0}
+.ui-grid-pager-control .first-triangle {position: relative; left: 3px}
+.ui-grid-pager-control .last-triangle {position: relative; left: 8px}
+.ui-grid-top-panel {
+  background: #747579;
+  color:#fff;
+}
+.btn-primary,.btn-primary.disabled, .btn-primary:disabled {background: #132b94; border-color:#132b94;}
+.clrblue {color:#132b94;}
+.ui-grid-row:nth-child(odd) .ui-grid-cell {
+  background: #fff
+}
+.ui-grid-row:nth-child(even) .ui-grid-cell {
+    background-color: #f9f9f9;
+}
+.modal-header {
+  padding: 10px 15px;
+      background: #717277;
+    color: #fff;
+    margin-bottom: 10px
+}
+.modal-footer {
+  padding: 10px 15px;
+}
+.note {
+    text-align: right;
+    padding-bottom: 10px;
+}
+.form-error {
+  color: red;
+    padding-left: 5px;
+    position: relative;
+    top: -5px;
+}
+.ui-grid-canvas {font-size: 13px}
+.statusInn {padding: 3px}
+.gobtn {margin-top:30px;}
+.ui-grid-footer-info {
+  border-top:1px solid #ccc;
+}
+.ui-grid-footer-info span {
+  padding-left: 20px;
+  font-weight: bold;
+
+}
+#trackGrid .grid{
+  height: auto !important
+}
+.nav-tabs .nav-link{
+  cursor: pointer;
+}
+.reportspage h5 {margin-bottom: 0; background: #1a2d79; padding: 10px; color:#fff; font-size: 15px}
+.reportspage #myTabContent {padding-top: 20px}
+.reportspage table.prolevel th {text-align: center;}
+.reportspage .overallInv {padding: 20px}
+.reportspage .reportbox {border:1px solid #ccc; margin-bottom: 20px}
+.reportspage .grid {text-align: center;}
+.table-fixed .tablehead {border:1px solid #ccc; border-width: 1px 0; padding: 10px}
+.table-fixed .tablebody{padding:0 10px; height: 200px; overflow-y: scroll; overflow-x: hidden;}
+.table-fixed .headcol {font-weight: bold; font-size: 14px}
+.table-fixed .bodycol {font-size: 14px; border-bottom: 1px solid #ccc; padding-top: 5px; padding-bottom: 5px; text-overflow: ellipsis; overflow: hidden; width: 100%; white-space: nowrap;}

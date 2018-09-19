@@ -1,0 +1,44 @@
+{
+  "name": "scale-labs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "server.js"
+  },
+  "author": "Rakesh",
+  "license": "ISC",
+  "dependencies": {
+    "aftership": "^5.3.4",
+    "amazon-mws": "0.0.13",
+    "angular-file-saver": "^1.1.3",
+    "base64topdf": "^1.1.8",
+    "blob": "0.0.4",
+    "body-parser": "^1.18.2",
+    "chance": "^1.0.11",
+    "date-and-time": "^0.6.1",
+    "dhl": "^1.2.0",
+    "ebay-api": "^1.13.7",
+    "excel4node": "^1.4.0",
+    "exceljs": "^1.5.1",
+    "express": "^4.16.1",
+    "fedex": "0.0.1",
+    "file-base64": "^1.0.0",
+    "file-saver": "^1.3.8",
+    "jsonwebtoken": "^8.0.1",
+    "lodash": "^4.17.4",
+    "moment": "^2.22.1",
+    "mysql": "^2.15.0",
+    "path": "^0.12.7",
+    "readline-specific": "^1.0.4",
+    "request": "^2.83.0",
+    "request-ip": "^2.0.2",
+    "strong-soap": "^1.2.6",
+    "winston": "^2.4.0",
+    "winston-daily-rotate-file": "^1.7.2"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.3"
+  }
+}

@@ -1,0 +1,145 @@
+/*jslint node: true */
+'use strict';
+var sellerDB = {};
+var config = require('../../config/config');
+var mysql_db = require('../../db/mysql_db');
+var query_config = require('../../config/query_config');
+var logger = config.logger;
+var async = require('async');
+var _ = require('lodash');
+var mysqldb = require('mysql');
+
+var con = mysqldb.createConnection({
+        host: "scalelabsdevdb.cababjt98r5d.us-east-1.rds.amazonaws.com",
+        user: "scaleLabsDevDB",
+        password: "scaleLabsDevDB",
+	database : 'my_db'
+});
+
+sellerDB.uploadProduct = function(apiname, userName, productDetails, modelCallback) {
+	logger.info(userName+ ":seller_model:uploadProduct:" + apiname + ":Enter:"+userName+":");
+	var failureResponse = {
+                "responseCode": -1,
+                "response": "",
+                "errorMsg": "DB_ERROR"
+        };
+
+        var sucessResponse = {
+                "responseCode": 0,
+                "response": {},
+                "errorMsg": ""
+        };
+	for(var i = 0; i < productDetails.length; i++) {
+		//con.query(query_config.SELLER.INSERT_NEW_PRODUCT,[productDetails[i].sku,productDetails[i].price,productDetails[i].quantity,productDetails[i].productId,productDetails[i].amazonProductIdType,productDetails[i].amazonConditionType,productDetails[i].amazonConditionNote,productDetails[i].asinHint,productDetails[i].title,productDetails[i].productTaxCode,productDetails[i].amazonOperationType,productDetails[i].salePrice,productDetails[i].saleStartDate,productDetails[i].saleEndDate,productDetails[i].leadtimeToShip,productDetails[i].launchDate,productDetails[i].isGiftwrapAvailable,productDetails[i].isGiftMessageAvailable,productDetails[i].amazoneFulfillmentCenterId,productDetails[i].mainOfferImage,productDetails[i].offerImage1,productDetails[i].offerImage2,productDetails[i].offerImage3,productDetails[i].offerImage4,productDetails[i].offerImage5,productDetails[i].offerImage6,productDetails[i].offerImage7,productDetails[i].offerImage8,productDetails[i].offerImage9,productDetails[i].offerImage10,userName],function (err, result) {
+		con.query(query_config.SELLER.INSERT_NEW_PRODUCT,[userName,productDetails[i].itemType,productDetails[i].itemSku,productDetails[i].externalProductId,productDetails[i].externalProductIdType,productDetails[i].brandName,productDetails[i].itemName,productDetails[i].manufacturer,productDetails[i].departmentName1,productDetails[i].departmentName2,productDetails[i].departmentName3,productDetails[i].departmentName4,productDetails[i].departmentName5,productDetails[i].materialType1,productDetails[i].materialType2,productDetails[i].materialType3,productDetails[i].materialType4,productDetails[i].materialType5,productDetails[i].metalType,productDetails[i].settingType,productDetails[i].gemType,productDetails[i].standardPrice,productDetails[i].quantity,productDetails[i].merchantShippingGroupName,productDetails[i].mainOfferImage,productDetails[i].swatchImageUrl,productDetails[i].offerImage1,productDetails[i].offerImage2,productDetails[i].offerImage3,productDetails[i].offerImage4,productDetails[i].offerImage5,productDetails[i].offerImage6,productDetails[i].offerImage7,productDetails[i].offerImage8,productDetails[i].offerImage,productDetails[i].feedProductType,productDetails[i].updateDelete,productDetails[i].productDescription,productDetails[i].bulletPoint1,productDetails[i].bulletPoint2,productDetails[i].bulletPoint3,productDetails[i].bulletPoint4,productDetails[i].bulletPoint5,productDetails[i].targetAudienceKeywords1,productDetails[i].targetAudienceKeywords2,productDetails[i].targetAudienceKeywords3,productDetails[i].targetAudienceKeywords4,productDetails[i].targetAudienceKeywords5,productDetails[i].specificUsesKeywords1,productDetails[i].specificUsesKeywords2,productDetails[i].specificUsesKeywords3,productDetails[i].specificUsesKeywords4,productDetails[i].specificUsesKeywords5,productDetails[i].genericKeywords1,productDetails[i].genericKeywords2,productDetails[i].genericKeywords3,productDetails[i].genericKeywords4,productDetails[i].genericKeywords5,productDetails[i].websiteShippingWeight,productDetails[i].websiteShippingWeightUnitOfMeasure,productDetails[i].displayDimensionsUnitOfMeasure,productDetails[i].itemDisplayDiameter,productDetails[i].itemDisplayheight,productDetails[i].itemDisplayWidth,productDetails[i].itemDisplayLength,productDetails[i].itemLength,productDetails[i].itemWidth,productDetails[i].itemheight,productDetails[i].itemDimensionsUnitOfMeasure,productDetails[i].itemDisplayWeight,productDetails[i].itemDisplayWeightUnitOfMeasure,productDetails[i].fulfillmentCenterId,productDetails[i].packageLength,productDetails[i].packageheight,productDetails[i].packageWidth,productDetails[i].packageDimensionsUnitOfMeasure,productDetails[i].packageWeight,productDetails[i].packageWeightUnitOfMeasure, productDetails[i].countryOfOrigin,productDetails[i].prop65,productDetails[i].cpsiaCautionaryStatement1,productDetails[i].cpsiaCautionaryStatement2,productDetails[i].cpsiaCautionaryStatement3,productDetails[i].cpsiaCautionaryStatement4,productDetails[i].cpsiaCautionaryDescription,productDetails[i].fabricType1,productDetails[i].fabricType2,productDetails[i].fabricType3,productDetails[i].fabricType4,productDetails[i].fabricType5,productDetails[i].fabricType6,productDetails[i].fabricType7,productDetails[i].fabricType8,productDetails[i].fabricType9,productDetails[i].fabricType10,productDetails[i].importDesignation,productDetails[i].conditionType,productDetails[i].conditionNote,productDetails[i].currency,productDetails[i].productSiteLaunchDate,productDetails[i].productTaxCode,productDetails[i].listPrice,productDetails[i].salePrice,productDetails[i].saleFromDate,productDetails[i].saleEndDate,productDetails[i].merchantReleaseDate,productDetails[i].itemPackageQuantity,productDetails[i].fulfillmentLatency,productDetails[i].restockDate,productDetails[i].maxAggregateShipQuantity,productDetails[i].offeringCanBeGiftMessaged,productDetails[i].offeringCanBeGiftwrapped,productDetails[i].isDiscontinuedByManufacturer,productDetails[i].maxOrderQuantity,productDetails[i].offeringStartDate],function (err, result) {
+			if (err){
+                                logger.error(userName + ':seller_model:uploadProduct:' + apiname + ':Error:' + err);
+                                failureResponse.errorMsg = "Failure in uploading product, Please try again or contact support team!!";
+				modelCallback(failureResponse);
+			}
+		});
+	}	
+	modelCallback(sucessResponse);
+};
+
+sellerDB.getAllProducts = function(apiname, userName, modelCallback) {
+        logger.info(userName+ ":seller_model:getAllProducts:" + apiname + ":Enter:"+userName+":");
+        var failureResponse = {
+                "responseCode": -1,
+                "response": "",
+                "errorMsg": "DB_ERROR"
+        };
+
+        var sucessResponse = {
+                "responseCode": 0,
+                "response": {},
+                "errorMsg": ""
+        };
+	var productDetails = { "productDetails" :[] };
+	con.query(query_config.SELLER.GET_ALL_SELLER_PRODUCT,[userName],function (err, result) {
+		if (err){
+			logger.error(userName + ':seller_model:getAllProducts:' + apiname + ':Error:' + err);
+			failureResponse.errorMsg = "Issue in retriving the products, Please try again or contact support team!!";
+			modelCallback(failureResponse);
+                } else {
+			if (result && result.length > 0) {
+				for (var i = 0;i < result.length; i++) {
+					var productDetail = {
+						"sku" : "",
+						"price" : "",
+						"quantity" : "",
+						"productId" : "",
+						"amazonProductIdType" : "",
+						"amazonConditionType" : "",
+						"amazonConditionNote" : "",
+						"asinHint" : "",
+						"title" : "",
+						"productTaxCode" : "",
+						"amazonOperationType" : "",
+						"salePrice" : "",
+						"saleStartDate" : "",
+						"saleEndDate" : "",
+						"leadtimeToShip" : "",
+						"launchDate" : "",
+						"isGiftwrapAvailable" : "",
+						"isGiftMessageAvailable" : "",
+						"amazoneFulfillmentCenterId" : "",
+						"mainOfferImage" : "",
+						"offerImage1" : "",
+						"offerImage2" : "",
+						"offerImage3" : "",
+						"offerImage4" : "",
+						"offerImage5" : "",
+						"offerImage6" : "",
+						"offerImage7" : "",
+						"offerImage8" : "",
+						"offerImage9" : "",
+						"offerImage10" : "",
+						"id" : "",
+						"status" : ""
+					}
+					productDetail.sku=result[i].SKU
+					productDetail.price=result[i].PRICE
+                                        productDetail.quantity=result[i].QUANTITY
+                                        productDetail.productId=result[i].PRODUCT_ID
+                                        productDetail.amazonProductIdType=result[i].PRODUCT_ID_TYPE
+                                        productDetail.amazonConditionType=result[i].CONDITION_TYPE
+                                        productDetail.amazonConditionNote=result[i].CONDITION_NOTE
+                                        productDetail.asinHint=result[i].ASIN_HINT
+                                        productDetail.title=result[i].TITLE
+                                        productDetail.productTaxCode=result[i].PRODUCT_TAX_CODE
+                                        productDetail.amazonOperationType=result[i].OPERATION_TYPE
+                                        productDetail.salePrice=result[i].SALE_PRICE
+                                        productDetail.saleStartDate=result[i].SALE_START_DATE
+                                        productDetail.saleEndDate=result[i].SALE_END_DATE
+                                        productDetail.leadtimeToShip=result[i].LEADTIME_TO_SHIP
+                                        productDetail.launchDate=result[i].LAUNCH_DATE
+                                        productDetail.isGiftwrapAvailable=result[i].GIFTWRAP_AVAILABLE
+                                        productDetail.isGiftMessageAvailable=result[i].GIFT_MESSAGE_AVAILABLE
+                                        productDetail.amazoneFulfillmentCenterId=result[i].FULFILLMENT_CENTER_ID
+                                        productDetail.mainOfferImage=result[i].MAIN_OFFER_IMAGE
+                                        productDetail.offerImage1=result[i].OFFER_IMAGE1;
+                                        productDetail.offerImage2=result[i].OFFER_IMAGE2;
+                                        productDetail.offerImage3=result[i].OFFER_IMAGE3;
+                                        productDetail.offerImage4=result[i].OFFER_IMAGE4;
+                                        productDetail.offerImage5=result[i].OFFER_IMAGE5;
+                                        productDetail.offerImage6=result[i].OFFER_IMAGE6;
+                                        productDetail.offerImage7=result[i].OFFER_IMAGE7;
+                                        productDetail.offerImage8=result[i].OFFER_IMAGE8;
+                                        productDetail.offerImage9=result[i].OFFER_IMAGE9;
+                                        productDetail.offerImage10=result[i].OFFER_IMAGE10;
+                                        productDetail.id=result[i].ID;
+                                        productDetail.status=result[i].STATUS
+					productDetails.productDetails.push(productDetail);
+				}
+			} else {
+				logger.info(userName+ ":seller_model:getAllProducts:" + apiname + ":No Product available:");
+			}
+			sucessResponse.response=productDetails;
+			logger.info(userName+ ":seller_model:getAllProducts:" + apiname + ":Exit:");
+			modelCallback(sucessResponse);
+		}
+	});
+};
+
+module.exports = sellerDB;
