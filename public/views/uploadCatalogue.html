@@ -2,14 +2,15 @@
     <div class="content-wrapper">
 
         <div class="container-fluid">
-             
-        <div uib-alert ng-class="'alert-' + alerts.type" ng-show="alerts.alert" type="{{alerts.type}}" close="closeAlert()">{{alerts.msg}}
-        </div>
-        <div class="col-md-12 text-center col-pad-fix" ng-show="onLoad">
-            <div class="progressMsg"><i class="fa fa-spinner fa-spin fa-2x"></i>Please wait while Loading Data from Server </div>
-        </div>
 
-   <ol class="breadcrumb">
+            <div uib-alert ng-class="'alert-' + alerts.type" ng-show="alerts.alert" type="{{alerts.type}}" close="closeAlert()">{{alerts.msg}}
+            </div>
+            <div class="col-md-12 text-center col-pad-fix" ng-show="onLoad">
+                <div class="progressMsg"><i class="fa fa-spinner fa-spin fa-2x"></i>Please wait while Loading Data from
+                    Server </div>
+            </div>
+
+            <ol class="breadcrumb">
                 <li>You are here: &nbsp;</li>
                 <li class="breadcrumb-item">
                     <a href="#/">Dashboard</a>
@@ -21,48 +22,56 @@
                     <i class="fa fa-users"></i> Product List test</div>
                 <div class="card-body">
                     <!-- Breadcrumbs-->
-         
-            <div class="gridtopRow clearfix" ng-show="isAdmin || isManager">
-                <div class="pull-left shipPro" ng-show="isAdmin">
-                    <label class="control-label">Account Manager: </label>
-                        <select class="styled-select form-control" ng-model="selectedManager" ng-options="manager for manager in managerList" ng-change="populateSeller()">
-              </select>
-                    
-                </div>
-                <div class="pull-left" ng-show="isAdmin || isManager">
-                    <label class="control-label">Seller: </label>
-                        <select class="styled-select form-control" ng-model="selectedSeller" ng-options="seller for seller in sellerList" ng-change="getAP()">
-                        </select>
-                   
-                </div>
-            </div>
-            <div class="clearfix">
-            <div class="gridtopRow clearfix" ng-show="isSeller">
-                <div class="pull-left">
-                <span class="fileupload fileupload-new" data-provides="fileupload">
-                    <span class="btn btn-primary btn-file"><span class="fileupload-new">Select file</span>
-                    <span class="fileupload-exists">Change</span> <input type="file" accept=".xlsx,.xlsm" id="cat-file" /></span>
-                    <span class="fileupload-preview"></span>
-                    <a href="#/uploadCatalogue" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">×</a>
-                    <span>{{fileName}}</span>                     
-                </span>
 
-                <button class="btn btn-primary btn-xs glyphicon glyphicon-ok-sign" ng-click="uploadToServer()" ng-disabled="disableSellerUB">Upload File</button>
-                  <button ng-click="updateProductExcel()" class="btn btn-primary btn-xs glyphicon glyphicon-ok-sign" ng-disabled="disableSellerUB">Update Product</button>
-                <button ng-disabled="disableDownloadButton" class="btn btn-primary btn-xs glyphicon glyphicon-ok-sign" ng-click="getProductExcel()">Download Product(s)</button>
-            </div>
-                 <div class="col-md-2 pull-right downTmp">
-                        <a href="http://18.220.117.145:3000/downloadGenericTemplate"> <i class="fa fa-download" aria-hidden="true"></i> Download Template</a>
+                    <div class="gridtopRow clearfix" ng-show="isAdmin || isManager">
+                        <div class="pull-left shipPro" ng-show="isAdmin">
+                            <label class="control-label">Account Manager: </label>
+                            <select class="styled-select form-control" ng-model="selectedManager" ng-options="manager for manager in managerList"
+                                ng-change="populateSeller()">
+                            </select>
+
+                        </div>
+                        <div class="pull-left" ng-show="isAdmin || isManager">
+                            <label class="control-label">Seller: </label>
+                            <select class="styled-select form-control" ng-model="selectedSeller" ng-options="seller for seller in sellerList"
+                                ng-change="getAP()">
+                            </select>
+
+                        </div>
                     </div>
-            </div>
+                    <div class="clearfix">
+                        <div class="gridtopRow clearfix" ng-show="isSeller">
+                            <div class="pull-left">
+                                <span class="fileupload fileupload-new" data-provides="fileupload">
+                                    <span class="btn btn-primary btn-file"><span class="fileupload-new">Select file</span>
+                                        <span class="fileupload-exists">Change</span> <input type="file" accept=".xlsx,.xlsm"
+                                            id="cat-file" /></span>
+                                    <span class="fileupload-preview"></span>
+                                    <a href="#/uploadCatalogue" class="close fileupload-exists" data-dismiss="fileupload"
+                                        style="float: none">×</a>
+                                    <span>{{fileName}}</span>
+                                </span>
 
-           
-            </div>
-                    <div ui-grid="productDetails" ui-grid-selection ui-grid-cellnav ui-grid-pagination ui-grid-resize-columns ui-grid-auto-resize class="grid">
+                                <button class="btn btn-primary btn-xs glyphicon glyphicon-ok-sign" ng-click="uploadToServer()"
+                                    ng-disabled="disableSellerUB">Upload File</button>
+                                <button ng-click="updateProductExcel()" class="btn btn-primary btn-xs glyphicon glyphicon-ok-sign"
+                                    ng-disabled="disableSellerUB">Update Product</button>
+                                <button ng-disabled="disableDownloadButton" class="btn btn-primary btn-xs glyphicon glyphicon-ok-sign"
+                                    ng-click="getProductExcel()">Download Product(s)</button>
+                            </div>
+                            <div class="col-md-2 pull-right downTmp">
+                                <a href="http://localhost:3000/downloadGenericTemplate"> <i class="fa fa-download"
+                                        aria-hidden="true"></i> Download Template</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div ui-grid="productDetails" ui-grid-selection ui-grid-cellnav ui-grid-pagination
+                        ui-grid-resize-columns ui-grid-auto-resize class="grid">
                     </div>
                 </div>
                 <div class="col-md-2 col-pad-fix vertical-align text-center" ng-show="isManager">
-                    <button type="button" class="btn btn-md btn-success pull-right" ng-disabled = "disableUploadButton" ng-click="managerUpload()">Upload to Market Place</button>
+                    <button type="button" class="btn btn-md btn-success pull-right" ng-disabled="disableUploadButton"
+                        ng-click="managerUpload()">Upload to Market Place</button>
                 </div>
                 <div class="card-footer small text-muted">Last Updated at : {{formattedDate}}</div>
             </div>
@@ -79,7 +88,7 @@
     </footer>
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fa fa-angle-up"></i>
+        <i class="fa fa-angle-up"></i>
     </a>
 
 

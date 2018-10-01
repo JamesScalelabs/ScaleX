@@ -12,13 +12,17 @@ var fs = require('fs');
 
 
 seller_route.get('/downloadGenericTemplate', function(req,res) {
-	logger.info(req.body.userName + ":seller_route:downloadGenericTemplate:" + req.headers.apiname + ":Request Received:",req.body);
-	var filePath="/home/ubuntu/scaleLabs/properties/Catalog_Template.xlsx";
-	res.writeHead(200, {
-		"Content-Type": "application/octet-stream",
-		"Content-Disposition": "attachment; filename=Generic_Upload_Product.xlsx"
-	});
-	fs.createReadStream(filePath).pipe(res);
+        try{
+                logger.info(req.body.userName + ":seller_route:downloadGenericTemplate:" + req.headers.apiname + ":Request Received:",req.body);
+                var filePath="properties/Catalog_Template.xlsx";
+                res.writeHead(200, {
+                        "Content-Type": "application/octet-stream",
+                        "Content-Disposition": "attachment; filename=Generic_Upload_Product.xlsx"
+                });
+                fs.createReadStream(filePath).pipe(res);
+        }catch(err){
+                return err;
+        }
 });
 
 seller_route.post('/uploadSellerProduct', function(req,res) {

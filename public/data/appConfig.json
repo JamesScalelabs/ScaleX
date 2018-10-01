@@ -1,5 +1,5 @@
 {   
-    "restServer": "http://18.220.117.145:3000/",
+    "restServer": "http://localhost:3000/",
     "responseTimeout": 60,
     "restApis": {
         "LOGIN":"login",

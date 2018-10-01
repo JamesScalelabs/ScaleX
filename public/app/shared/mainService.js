@@ -1,10 +1,10 @@
 angular
 	.module('SLModule.shared')
-	.factory('SharedService', ['$http','slDashboardConfig',
-		function( $http, slDashboardConfig) {
+	.factory('SharedService', ['$http', 'slDashboardConfig',
+		function ($http, slDashboardConfig) {
 			var sharedAPI = {};
 
-			sharedAPI.getErrorMessage = function(errorCode) {
+			sharedAPI.getErrorMessage = function (errorCode) {
 				var errMsg = "OTHR_ERR_CODE";
 
 				switch (errorCode) {
@@ -16,7 +16,7 @@ angular
 						break;
 					case 502:
 						errMsg = "502_ERR_CODE";
-						break;						
+						break;
 					case 403:
 						errMsg = "403_ERR_CODE";
 						break;
@@ -28,15 +28,15 @@ angular
 				return errMsg;
 			};
 
-			sharedAPI.getManagerRole = function(request) {
+			sharedAPI.getManagerRole = function (request) {
 				return $http.post(slDashboardConfig.restServer + slDashboardConfig.restApis.GET_MANAGER_ROLE, request);
 			};
 
-			sharedAPI.getAllocateSellers = function(request){
-			return $http.post(slDashboardConfig.restServer + slDashboardConfig.restApis.GET_ALLOCATED_SELLERS, request);
+			sharedAPI.getAllocateSellers = function (request) {
+				return $http.post(slDashboardConfig.restServer + slDashboardConfig.restApis.GET_ALLOCATED_SELLERS, request);
 			};
 
-			
+
 
 			return sharedAPI;
 		}

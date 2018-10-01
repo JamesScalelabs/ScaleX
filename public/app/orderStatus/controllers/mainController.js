@@ -1,7 +1,7 @@
 angular.module('SLModule.orderStatus')
 
-    .controller('OrderStatusController', ["$scope", "$uibModal", "$window", "OrderStatusService", "slDashboardConfig", "localStorageService", "SharedService", "$filter","FileSaver","Blob",
-        function($scope, $uibModal, $window, OrderStatusService, slDashboardConfig, localStorageService, SharedService, $filter, FileSaver,Blob) {
+    .controller('OrderStatusController', ["$scope", "$uibModal", "$window", "OrderStatusService", "slDashboardConfig", "localStorageService", "SharedService", "$filter", "FileSaver", "Blob",
+        function ($scope, $uibModal, $window, OrderStatusService, slDashboardConfig, localStorageService, SharedService, $filter, FileSaver, Blob) {
             console.log('OrderStatusController');
 
             $scope.enableVA = false;
@@ -23,10 +23,10 @@ angular.module('SLModule.orderStatus')
             $scope.orderDetailsToView = [];
             $scope.allOrderDetails = [];
 
-            $scope.closeAlert = function() {
+            $scope.closeAlert = function () {
                 $scope.alerts.alert = false;
             };
-            $scope.closeSyncAlert = function() {
+            $scope.closeSyncAlert = function () {
                 $scope.synclerts.alert = false;
             };
 
@@ -65,31 +65,31 @@ angular.module('SLModule.orderStatus')
             console.log($scope.isAdmin + "   " + $scope.isManager);
 
             function saveFileAs(blob) {
-                        // It is necessary to create a new blob object with mime-type explicitly set
-                  // otherwise only Chrome works like it should
-                  var newBlob = new Blob([blob], {type: "application/pdf"})
-                 
-                  // IE doesn't allow using a blob object directly as link href
-                  // instead it is necessary to use msSaveOrOpenBlob
-                  if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                // It is necessary to create a new blob object with mime-type explicitly set
+                // otherwise only Chrome works like it should
+                var newBlob = new Blob([blob], { type: "application/pdf" })
+
+                // IE doesn't allow using a blob object directly as link href
+                // instead it is necessary to use msSaveOrOpenBlob
+                if (window.navigator && window.navigator.msSaveOrOpenBlob) {
                     window.navigator.msSaveOrOpenBlob(newBlob);
                     return;
-                  } 
-                 
-                  // For other browsers: 
-                  // Create a link pointing to the ObjectURL containing the blob.
-                  const data = window.URL.createObjectURL(newBlob);
-                  var link = document.createElement('a');
-                  link.href = data;
-                  link.download="invoice.pdf";
-                  link.click();
-                  setTimeout(function(){
+                }
+
+                // For other browsers: 
+                // Create a link pointing to the ObjectURL containing the blob.
+                const data = window.URL.createObjectURL(newBlob);
+                var link = document.createElement('a');
+                link.href = data;
+                link.download = "invoice.pdf";
+                link.click();
+                setTimeout(function () {
                     // For Firefox it is necessary to delay revoking the ObjectURL
                     window.URL.revokeObjectURL(data);
                 }, 100);
             }
 
-            $scope.downloadInvoice = function(invoiceId) {
+            $scope.downloadInvoice = function (invoiceId) {
                 $scope.onSyncFS = true;
                 console.log(invoiceId);
                 var syncSellerOrdersRequest = {
@@ -98,18 +98,18 @@ angular.module('SLModule.orderStatus')
                 };
 
 
-                OrderStatusService.downloadInvoice(syncSellerOrdersRequest).success(function(result) {
-                        saveFileAs(result);
+                OrderStatusService.downloadInvoice(syncSellerOrdersRequest).success(function (result) {
+                    saveFileAs(result);
                 }).
-                error(function(data, status, headers, config) {
-                    $scope.onGSOrder = false;
-                    $scope.alerts.alert = true;
-                    $scope.alerts.type = 'danger';
-                    $scope.alerts.msg = SharedService.getErrorMessage(status);
-                });
+                    error(function (data, status, headers, config) {
+                        $scope.onGSOrder = false;
+                        $scope.alerts.alert = true;
+                        $scope.alerts.type = 'danger';
+                        $scope.alerts.msg = SharedService.getErrorMessage(status);
+                    });
             };
 
-            $scope.syncSellerOrders = function() {
+            $scope.syncSellerOrders = function () {
                 $scope.onSyncFS = true;
                 var syncSellerOrdersRequest = {
                     "userName": userName,
@@ -119,7 +119,7 @@ angular.module('SLModule.orderStatus')
                 };
 
 
-                OrderStatusService.syncSellerOrders(syncSellerOrdersRequest).success(function(result) {
+                OrderStatusService.syncSellerOrders(syncSellerOrdersRequest).success(function (result) {
                     if (result.responseCode === 0) {
                         $scope.onSyncFS = false;
                         $scope.alerts.alert = true;
@@ -133,15 +133,15 @@ angular.module('SLModule.orderStatus')
                         $scope.alerts.msg = result.errorMsg;
                     }
                 }).
-                error(function(data, status, headers, config) {
-                    $scope.onGSOrder = false;
-                    $scope.alerts.alert = true;
-                    $scope.alerts.type = 'danger';
-                    $scope.alerts.msg = SharedService.getErrorMessage(status);
-                });
+                    error(function (data, status, headers, config) {
+                        $scope.onGSOrder = false;
+                        $scope.alerts.alert = true;
+                        $scope.alerts.type = 'danger';
+                        $scope.alerts.msg = SharedService.getErrorMessage(status);
+                    });
             };
 
-            $scope.populateSeller = function() {
+            $scope.populateSeller = function () {
 
                 $scope.alerts.alert = false;
 
@@ -164,11 +164,11 @@ angular.module('SLModule.orderStatus')
                     };
 
                     $scope.onSyncFS = true;
-                    SharedService.getAllocateSellers(getASRequest).success(function(result) {
+                    SharedService.getAllocateSellers(getASRequest).success(function (result) {
                         $scope.onSyncFS = false;
                         if (result.responseCode === 0 && result.response.allocatedUser) {
 
-                            _.forEach(result.response.allocatedUser, function(data) {
+                            _.forEach(result.response.allocatedUser, function (data) {
                                 $scope.sellerList.push(data.value);
                             });
 
@@ -180,17 +180,17 @@ angular.module('SLModule.orderStatus')
                             $scope.disableSubmit = false;
                         }
                     }).
-                    error(function(data, status, headers, config) {
-                        $scope.onGetSeller = false;
-                        $scope.alerts.alert = true;
-                        $scope.alerts.type = 'danger';
-                        $scope.alerts.msg = SharedService.getErrorMessage(status);
-                    });
+                        error(function (data, status, headers, config) {
+                            $scope.onGetSeller = false;
+                            $scope.alerts.alert = true;
+                            $scope.alerts.type = 'danger';
+                            $scope.alerts.msg = SharedService.getErrorMessage(status);
+                        });
                 }
 
             };
 
-            getSellerOrders = function() {
+            getSellerOrders = function () {
 
                 $scope.onSyncFS = true;
                 var getSellerOrdersCountRequest = {
@@ -208,14 +208,14 @@ angular.module('SLModule.orderStatus')
                     $scope.alerts.type = 'warning';
                     $scope.alerts.msg = "Please Select Manager to display the Seller List!!";
                 } else {
-                    OrderStatusService.getSellerOrdersCount(getSellerOrdersCountRequest).success(function(result) {
+                    OrderStatusService.getSellerOrdersCount(getSellerOrdersCountRequest).success(function (result) {
                         if (result.responseCode === 0) {
                             $scope.onSyncFS = false;
                             $scope.enableVA = true;
 
                             $scope.sellerOrdersCount = result.response.productList;
 
-                            $scope.sellerOrdersCount.forEach(function(row) {
+                            $scope.sellerOrdersCount.forEach(function (row) {
                                 $scope.orderDetailsGridData.push(row);
                                 $scope.orderDetailsGridDataOriginal.push(row);
                             });
@@ -228,18 +228,18 @@ angular.module('SLModule.orderStatus')
                             $scope.disableSubmit = false;
                         }
                     }).
-                    error(function(data, status, headers, config) {
-                        $scope.onGSOrder = false;
-                        $scope.alerts.alert = true;
-                        $scope.alerts.type = 'danger';
-                        $scope.alerts.msg = SharedService.getErrorMessage(status);
-                    });
+                        error(function (data, status, headers, config) {
+                            $scope.onGSOrder = false;
+                            $scope.alerts.alert = true;
+                            $scope.alerts.type = 'danger';
+                            $scope.alerts.msg = SharedService.getErrorMessage(status);
+                        });
                 }
 
             };
 
 
-            $scope.viewOrderDetail = function(productName) {
+            $scope.viewOrderDetail = function (productName) {
                 console.log('Inside View Order Detail' + productName);
                 $scope.onSyncFS = true;
                 var getSellerOrders = {
@@ -248,7 +248,7 @@ angular.module('SLModule.orderStatus')
                         "sellerName": $scope.selectedSeller
                     }
                 };
-                OrderStatusService.getSellerOrders(getSellerOrders).success(function(result) {
+                OrderStatusService.getSellerOrders(getSellerOrders).success(function (result) {
                     if (result.responseCode === 0) {
 
 
@@ -274,7 +274,7 @@ angular.module('SLModule.orderStatus')
                         localStorageService.set('displayData', displayData);
                         localStorageService.set('sellerName', $scope.selectedSeller);
 
-                        displayData.forEach(function(row) {
+                        displayData.forEach(function (row) {
                             $scope.orderDetailsGridData.push(row);
                             $scope.orderDetailsGridDataOriginal.push(row)
                         });
@@ -291,18 +291,18 @@ angular.module('SLModule.orderStatus')
                         $scope.disableSubmit = false;
                     }
                 }).
-                error(function(data, status, headers, config) {
-                    $scope.onGSOrder = false;
-                    $scope.alerts.alert = true;
-                    $scope.alerts.type = 'danger';
-                    $scope.alerts.msg = SharedService.getErrorMessage(status);
-                });
+                    error(function (data, status, headers, config) {
+                        $scope.onGSOrder = false;
+                        $scope.alerts.alert = true;
+                        $scope.alerts.type = 'danger';
+                        $scope.alerts.msg = SharedService.getErrorMessage(status);
+                    });
 
 
             };
 
 
-            summaryDetails = function() {
+            summaryDetails = function () {
                 $scope.gridOptions = [];
                 $scope.orderDetailsToView = [];
 
@@ -329,88 +329,88 @@ angular.module('SLModule.orderStatus')
                 $scope.orderDetailsGrid.exporterMenuPdf = false;
                 $scope.orderDetailsGrid.enableRowSelection = false;
 
-                $scope.orderDetailsGrid.onRegisterApi = function(gridApi) {
-                    gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+                $scope.orderDetailsGrid.onRegisterApi = function (gridApi) {
+                    gridApi.selection.on.rowSelectionChanged($scope, function (row) {
                         $scope.orderDetailsToView = row.entity;
                     });
                     $scope.gridApi = gridApi;
                 };
 
                 $scope.orderDetailsGrid.columnDefs = [{
-                        name: 'createTs',
-                        displayName: 'Created Time',
-                        width: 110,
-                        enableColumnMenu: false,
-                        visible: true
-                    },
-                    {
-                        name: 'productName',
-                        displayName: 'Product Name',
-                        width: 410,
-                        enableColumnMenu: false,
-                        visible: true
-                    },
-                    {
-                        name: 'orderId',
-                        displayName: 'Order Id',
-                        width: 200,
-                        enableColumnMenu: false,
-                        visible: true
-                    },
-                    {
-                        name: 'price',
-                        displayName: 'Price',
-                        width: 130,
-                        enableColumnMenu: false,
-                        cellTemplate: '<p>{{row.entity.currency}} {{row.entity.price}}</p>',
-                        visible: true
-                    },
-                    {
-                        name: 'itemCount',
-                        displayName: 'Item Count',
-                        width: 130,
-                        enableColumnMenu: false,
-                        visible: true
-                    },
-                    {
-                        name: 'status',
-                        displayName: 'Status',
-                        width: 180,
-                        enableColumnMenu: false,
-                        visible: true
-                    },
-                    {
-                        name: 'customerFirstName',
-                        displayName: 'Customer Name',
-                        width: 250,
-                        enableColumnMenu: false,
-                        cellTemplate: '<center>{{row.entity.customerFirstName}}</center>',
-                        visible: true
-                    },
-                    {
-                        name: 'marketPlace',
-                        displayName: 'Market Place',
-                        width: 130,
-                        enableColumnMenu: false,
-                        cellTemplate: '<center>{{row.entity.marketPlace}}</center>',
-                        visible: true
-                    },
-                    {
-                        name: 'invoiceNumber',
-                        displayName: 'Invoice Number',
-                        width: 120,
-                        enableColumnMenu: false,
-                        cellTemplate: '<center>{{row.entity.invoiceNumber}}</center>',
-                        visible: true
-                    },
-                    {
-                        name: 'id',
-                        displayName: 'Invoice',
-                        width: 80,
-                        enableColumnMenu: false,
-                        cellTemplate : '<center><a href = "" class="fa fa-download" aria-hidden="true" ng-click="grid.appScope.downloadInvoice(row.entity.id)"></a></center>',
-                        visible: true
-                    }
+                    name: 'createTs',
+                    displayName: 'Created Time',
+                    width: 110,
+                    enableColumnMenu: false,
+                    visible: true
+                },
+                {
+                    name: 'productName',
+                    displayName: 'Product Name',
+                    width: 410,
+                    enableColumnMenu: false,
+                    visible: true
+                },
+                {
+                    name: 'orderId',
+                    displayName: 'Order Id',
+                    width: 200,
+                    enableColumnMenu: false,
+                    visible: true
+                },
+                {
+                    name: 'price',
+                    displayName: 'Price',
+                    width: 130,
+                    enableColumnMenu: false,
+                    cellTemplate: '<p>{{row.entity.currency}} {{row.entity.price}}</p>',
+                    visible: true
+                },
+                {
+                    name: 'itemCount',
+                    displayName: 'Item Count',
+                    width: 130,
+                    enableColumnMenu: false,
+                    visible: true
+                },
+                {
+                    name: 'status',
+                    displayName: 'Status',
+                    width: 180,
+                    enableColumnMenu: false,
+                    visible: true
+                },
+                {
+                    name: 'customerFirstName',
+                    displayName: 'Customer Name',
+                    width: 250,
+                    enableColumnMenu: false,
+                    cellTemplate: '<center>{{row.entity.customerFirstName}}</center>',
+                    visible: true
+                },
+                {
+                    name: 'marketPlace',
+                    displayName: 'Market Place',
+                    width: 130,
+                    enableColumnMenu: false,
+                    cellTemplate: '<center>{{row.entity.marketPlace}}</center>',
+                    visible: true
+                },
+                {
+                    name: 'invoiceNumber',
+                    displayName: 'Invoice Number',
+                    width: 120,
+                    enableColumnMenu: false,
+                    cellTemplate: '<center>{{row.entity.invoiceNumber}}</center>',
+                    visible: true
+                },
+                {
+                    name: 'id',
+                    displayName: 'Invoice',
+                    width: 80,
+                    enableColumnMenu: false,
+                    cellTemplate: '<center><a href = "" class="fa fa-download" aria-hidden="true" ng-click="grid.appScope.downloadInvoice(row.entity.id)"></a></center>',
+                    visible: true
+                }
 
                 ];
                 /*$scope.orderDetailsGrid.columnDefs = [        
@@ -548,7 +548,7 @@ angular.module('SLModule.orderStatus')
 */
             };
 
-            $scope.getAllocateSellers = function() {
+            $scope.getAllocateSellers = function () {
 
                 console.log('Inside Get Allocat Sellers');
                 var getASRequest = {
@@ -565,7 +565,7 @@ angular.module('SLModule.orderStatus')
                     $scope.configure = [];
                 } else {
                     $scope.onGetSeller = true;
-                    SharedService.getAllocateSellers(getASRequest).success(function(result) {
+                    SharedService.getAllocateSellers(getASRequest).success(function (result) {
                         $scope.closeAlert();
                         $scope.onGetSeller = false;
                         if (result.responseCode === 0) {
@@ -584,17 +584,17 @@ angular.module('SLModule.orderStatus')
                             $scope.disableSubmit = false;
                         }
                     }).
-                    error(function(data, status, headers, config) {
-                        $scope.onGetSeller = false;
-                        $scope.alerts.alert = true;
-                        $scope.alerts.type = 'danger';
-                        $scope.alerts.msg = SharedService.getErrorMessage(status);
-                    });
+                        error(function (data, status, headers, config) {
+                            $scope.onGetSeller = false;
+                            $scope.alerts.alert = true;
+                            $scope.alerts.type = 'danger';
+                            $scope.alerts.msg = SharedService.getErrorMessage(status);
+                        });
                 }
             };
 
 
-            initPage = function() {
+            initPage = function () {
                 summaryDetails();
 
                 var getManagerListReq = {
@@ -603,10 +603,10 @@ angular.module('SLModule.orderStatus')
 
                 if (groupName !== "SELLER") {
                     $scope.onSyncFS = true;
-                    SharedService.getManagerRole(getManagerListReq).success(function(result) {
+                    SharedService.getManagerRole(getManagerListReq).success(function (result) {
                         $scope.onSyncFS = false;
                         if (result.responseCode === 0) {
-                            result.response.managerUsers.forEach(function(row) {
+                            result.response.managerUsers.forEach(function (row) {
                                 $scope.managerList.push(row.userName);
                             });
                         } else {
@@ -616,12 +616,12 @@ angular.module('SLModule.orderStatus')
                             $scope.disableSubmit = false;
                         }
                     }).
-                    error(function(data, status, headers, config) {
-                        $scope.onSyncFS = false;
-                        $scope.alerts.alert = true;
-                        $scope.alerts.type = 'danger';
-                        $scope.alerts.msg = SharedService.getErrorMessage(status);
-                    });
+                        error(function (data, status, headers, config) {
+                            $scope.onSyncFS = false;
+                            $scope.alerts.alert = true;
+                            $scope.alerts.type = 'danger';
+                            $scope.alerts.msg = SharedService.getErrorMessage(status);
+                        });
                 } else {
                     $scope.viewOrderDetail('all');
                 }
@@ -630,7 +630,7 @@ angular.module('SLModule.orderStatus')
                 $scope.selectedManager = userName;
                 $scope.populateSeller();
             }
-            $scope.getSO = function() {
+            $scope.getSO = function () {
                 if ($scope.selectedManager !== "Select" && $scope.selectedSeller !== "Select") {
                     $scope.viewOrderDetail('all');
 
@@ -638,7 +638,7 @@ angular.module('SLModule.orderStatus')
             };
             initPage();
 
-            $scope.refreshData = function() {
+            $scope.refreshData = function () {
                 console.log('search Triggered');
                 console.log($scope.orderDetailsGrid.data);
                 $scope.orderDetailsGridData = $filter('filter')($scope.orderDetailsGridDataOriginal, $scope.searchText);
