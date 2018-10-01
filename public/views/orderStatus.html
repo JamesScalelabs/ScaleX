@@ -1,104 +1,107 @@
 <div>
   <div class="content-wrapper">
-   
-      <div class="container-fluid">
-         <div uib-alert ng-class="'alert-' + alerts.type" ng-show="alerts.alert" type="{{alerts.type}}"
-    close="closeAlert()">{{alerts.msg}}
-    </div>
-    <div class="col-md-12 text-center col-pad-fix" ng-show="onSyncFS">
-      <div class="progressMsg"><i class="fa fa-spinner fa-spin fa-2x"></i>Loading data</div>
-    </div> 
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li>You are here: &nbsp;</li>
-          <li class="breadcrumb-item">
-            <a href="#/">Dashboard</a>
-          </li>
-          <li class="breadcrumb-item active">Order Status</li>
-        </ol> 
-       
-        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fa fa-motorcycle"></i> Order Status
-          </div>
 
+    <div class="container-fluid">
+      <div uib-alert ng-class="'alert-' + alerts.type" ng-show="alerts.alert" type="{{alerts.type}}" close="closeAlert()">{{alerts.msg}}
+      </div>
+      <div class="col-md-12 text-center col-pad-fix" ng-show="onSyncFS">
+        <div class="progressMsg"><i class="fa fa-spinner fa-spin fa-2x"></i>Loading data</div>
+      </div>
+      <!-- Breadcrumbs-->
+      <ol class="breadcrumb">
+        <li>You are here: &nbsp;</li>
+        <li class="breadcrumb-item">
+          <a href="#/">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Order Status</li>
+      </ol>
 
-          <div class="card-body">
-            <div class="row gridtopRow clearfix">
-            <div class="col-md-12 col-pad-fix vertical-align nopad" >  
-              <div class="col-md-4 col-pad-fix vertical-align" ng-show="isAdmin">                 
-                    <label class="control-label">Account Manager: </label>                  
-                    <select class="styled-select form-control" ng-model="selectedManager"   ng-options="manager for manager in managerList" ng-change="populateSeller()">
-                    </select> 
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-motorcycle"></i> Order Status
+        </div>
+        <div class="card-body">
+          <div class="row gridtopRow clearfix">
+            <div class="col-md-12 col-pad-fix vertical-align nopad">
+              <div class="col-md-4 col-pad-fix vertical-align" ng-show="isAdmin">
+                <label class="control-label">Account Manager: </label>
+                <select class="styled-select form-control" ng-model="selectedManager" ng-options="manager for manager in managerList"
+                  ng-change="populateSeller()">
+                </select>
               </div>
 
-              <div class="col-md-3 col-pad-fix vertical-align"  ng-show="isAdmin || isManager">                
-                    <label class="control-label">Seller: </label>
-                    <select class="styled-select form-control" ng-model="selectedSeller" ng-options="seller for seller in sellerList" ng-change="getSO()">
-                    </select>            
+              <div class="col-md-3 col-pad-fix vertical-align" ng-show="isAdmin || isManager">
+                <label class="control-label">Seller: </label>
+                <select class="styled-select form-control" ng-model="selectedSeller" ng-options="seller for seller in sellerList"
+                  ng-change="getSO()">
+                </select>
               </div>
               <div class="col-md-2 col-pad-fix vertical-align" ng-show="false">
-                    <button type="button" class="btn btn-md btn-normal pull-right " ng-click="viewOrderDetail('all')" >View All</button>
+                <button type="button" class="btn btn-md btn-normal pull-right " ng-click="viewOrderDetail('all')">View
+                  All</button>
               </div>
-               
+
               <div class="col-md-2 col-pad-fix vertical-align">
-                <button type="button" class="btn btn-normal " ng-click="syncSellerOrders()">Sync From Server &nbsp;&nbsp;<span class="fa fa-refresh "></span></button>
-            </div>
-            </div>
-            
-          </div>
-          <div class="col-pad-fix vertical-align nopad" >  
-          <div class="col-pad-fix vertical-align nopad" ng-show="enableVA">
-                <input type="text" ng-model="searchText" placeholder="Search..." class="form-control">
-               <button type="Filter" class="btn btn-xs btn-normal pull-right " ng-click="refreshData()">Filter</button>
-            </div>
-          </div>
-
-            <div ui-grid="orderDetailsGrid" ui-grid-selection ui-grid-pagination ui-grid-resize-columns ui-grid-edit ui-grid-auto-resize class="grid">        
-            </div> 
-          </div>
-          <div class="card-footer small text-muted">
-                Updated at <span>{{updatedAt}}</span>
-          </div>
-        </div>
-      </div>
-      <!-- /.container-fluid-->
-   </div>
-      <!-- /.content-wrapper-->
-    <footer class="sticky-footer">
-      <div class="container">
-        <div class="text-center">
-          <small>Copyright © Scale Labs</small>
-        </div>
-      </div>
-    </footer>
-      <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fa fa-angle-up"></i>
-    </a>
-
-
-    <div class="modal fade" id="viewOD" role="dialog" aria-labelledby="add" aria-hidden="true" onload="">    
-      <div class="modal-dialog">      
-        <div class="modal-content">
-         <div uib-alert ng-class="'alert-' + voAlerts.type" ng-show="voAlerts.alert" type="{{vo.type}}"
-          close="closeAddAlert()">{{vo.msg}}
-          </div>
-          <div class="col-md-12 text-center col-pad-fix" ng-show="true">
-              <div class="progressMsg" text-center ng-show="onCreate"><i class="fa fa-spinner fa-spin fa-2x"></i>&nbsp;&nbsp;Loading Data
+                <button type="button" class="btn btn-normal " ng-click="syncSellerOrders()">Sync From Server
+                  &nbsp;&nbsp;<span class="fa fa-refresh "></span></button>
               </div>
-          </div>
-          
-          <div class="modal-header">          
-            <h4 class="modal-title " id="Heading">Order Details</h4>
-            <button type="button" class="close" data-dismiss="modal" ><span class="glyphicon glyphicon-remove" >&times;</span></button>
-             <div ui-grid="orderDetailsGrid" ui-grid-selection ui-grid-pagination ui-grid-resize-columns  ui-grid-auto-resize class="grid"> 
+            </div>
 
-          </div>          
-          
+          </div>
+          <div class="col-pad-fix vertical-align nopad">
+            <div class="col-pad-fix vertical-align nopad" ng-show="enableVA">
+              <input type="text" ng-model="searchText" placeholder="Search..." class="form-control">
+              <button type="Filter" class="btn btn-xs btn-normal pull-right " ng-click="refreshData()">Filter</button>
+            </div>
+          </div>
+
+          <div ui-grid="orderDetailsGrid" ui-grid-selection ui-grid-pagination ui-grid-resize-columns ui-grid-edit
+            ui-grid-auto-resize class="grid">
+          </div>
         </div>
-    <!-- /.modal-content --> 
+        <div class="card-footer small text-muted">
+          Updated at <span>{{updatedAt}}</span>
+        </div>
+      </div>
     </div>
-      <!-- /.modal-dialog --> 
+    <!-- /.container-fluid-->
   </div>
- </div>
+  <!-- /.content-wrapper-->
+  <footer class="sticky-footer">
+    <div class="container">
+      <div class="text-center">
+        <small>Copyright © Scale Labs</small>
+      </div>
+    </div>
+  </footer>
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+  </a>
+
+
+  <div class="modal fade" id="viewOD" role="dialog" aria-labelledby="add" aria-hidden="true" onload="">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div uib-alert ng-class="'alert-' + voAlerts.type" ng-show="voAlerts.alert" type="{{vo.type}}" close="closeAddAlert()">{{vo.msg}}
+        </div>
+        <div class="col-md-12 text-center col-pad-fix" ng-show="true">
+          <div class="progressMsg" text-center ng-show="onCreate"><i class="fa fa-spinner fa-spin fa-2x"></i>&nbsp;&nbsp;Loading
+            Data
+          </div>
+        </div>
+
+        <div class="modal-header">
+          <h4 class="modal-title " id="Heading">Order Details</h4>
+          <button type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove">&times;</span></button>
+          <div ui-grid="orderDetailsGrid" ui-grid-selection ui-grid-pagination ui-grid-resize-columns
+            ui-grid-auto-resize class="grid">
+
+          </div>
+
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+  </div>
