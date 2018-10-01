@@ -1,52 +1,52 @@
 var app = angular.module('app', [
-     'ui.grid',   
+    'ui.grid',
     'ui.grid.selection',
     'ui.grid.resizeColumns',
     'ui.grid.autoResize',
     'ui.grid.pagination',
-    'LocalStorageModule' ]);
+    'LocalStorageModule']);
 
 angular.module('app')
     .config(['localStorageServiceProvider', function (localStorageServiceProvider) {
-          localStorageServiceProvider
+        localStorageServiceProvider
             .setPrefix('slDashboard')
             .setStorageType('sessionStorage')
             .setNotify(true, true);
     }]);
 
 
-angular.element(document).ready(function() {
+angular.element(document).ready(function () {
 
     var initInjector = angular.injector(['ng']);
     var $http = initInjector.get('$http');
     console.log('document Loaded Bootstrapping the application');
-        angular.bootstrap(document, ['app']);
-    
+    angular.bootstrap(document, ['app']);
 
-  
+
+
 });
 
- 
-app.controller('MainCtrl', ['$scope', '$http', '$window','localStorageService',
+
+app.controller('MainCtrl', ['$scope', '$http', '$window', 'localStorageService',
     function ($scope, $http, $window, localStorageService) {
- 
-
-
-console.log('Arun Raju');
- 
-    userData = localStorageService.get('userData');
-    console.log(userData);
-
-    displayData = localStorageService.get('displayData');
-
-    $scope.sellerName = localStorageService.get('sellerName');
-    $scope.productName = localStorageService.get('productName');
 
 
 
-  $scope.gridOptions=[];
-        $scope.orderDetailsToView=[];
-  
+        console.log('Arun Raju');
+
+        userData = localStorageService.get('userData');
+        console.log(userData);
+
+        displayData = localStorageService.get('displayData');
+
+        $scope.sellerName = localStorageService.get('sellerName');
+        $scope.productName = localStorageService.get('productName');
+
+
+
+        $scope.gridOptions = [];
+        $scope.orderDetailsToView = [];
+
         $scope.orderDetailsGridData = [];
 
         $scope.orderDetailsGrid = {};
@@ -60,7 +60,7 @@ console.log('Arun Raju');
         $scope.orderDetailsGrid.multiSelect = false;
         $scope.orderDetailsGrid.modifierKeysToMultiSelect = false;
         $scope.orderDetailsGrid.noUnselect = false;
-        $scope.orderDetailsGrid.rowHeight =30;
+        $scope.orderDetailsGrid.rowHeight = 30;
         $scope.orderDetailsGrid.showGridFooter = false;
         $scope.orderDetailsGrid.showColumnFooter = false;
         $scope.orderDetailsGrid.paginationPageSizes = [10, 20, 30];
@@ -68,99 +68,99 @@ console.log('Arun Raju');
         $scope.orderDetailsGrid.enableSelectAll = true;
         $scope.orderDetailsGrid.exporterMenuCsv = false;
         $scope.orderDetailsGrid.exporterMenuPdf = false;
-        $scope.orderDetailsGrid.enableRowSelection=true;
+        $scope.orderDetailsGrid.enableRowSelection = true;
 
 
 
 
-         $scope.orderDetailsGrid.columnDefs = [  
+        $scope.orderDetailsGrid.columnDefs = [
             {
                 name: 'createTs',
-                displayName:  'Order Create Time',
+                displayName: 'Order Create Time',
                 width: 85,
                 enableColumnMenu: false,
-                cellTemplate : '<center>{{row.entity.createTs}}</center>',
+                cellTemplate: '<center>{{row.entity.createTs}}</center>',
                 visible: true
             },
-	    {
+            {
                 name: 'productName',
-                displayName:  'Product Name',
+                displayName: 'Product Name',
                 width: 210,
                 enableColumnMenu: false,
-                cellTemplate : '<center>{{row.entity.productName}}</center>',
+                cellTemplate: '<center>{{row.entity.productName}}</center>',
                 visible: true
             },
             {
                 name: 'orderId',
-                displayName:  'Order Id',
+                displayName: 'Order Id',
                 width: 200,
                 enableColumnMenu: false,
-                cellTemplate : '<center>{{row.entity.orderId}}</center>',
+                cellTemplate: '<center>{{row.entity.orderId}}</center>',
                 visible: true
             },
             {
                 name: 'price',
-                displayName:  'Price',
+                displayName: 'Price',
                 width: 130,
                 enableColumnMenu: false,
-                cellTemplate : '<center>{{row.entity.currency}} {{row.entity.price}}</center>',
+                cellTemplate: '<center>{{row.entity.currency}} {{row.entity.price}}</center>',
                 visible: true
             },
             {
                 name: 'itemCount',
-                displayName:  'Item Count',
+                displayName: 'Item Count',
                 width: 130,
                 enableColumnMenu: false,
-                cellTemplate : '<center>{{row.entity.itemCount}}</center>',
+                cellTemplate: '<center>{{row.entity.itemCount}}</center>',
                 visible: true
             },
             {
                 name: 'status',
-                displayName:  'Status',
+                displayName: 'Status',
                 width: 180,
                 enableColumnMenu: false,
-                cellTemplate : '<center>{{row.entity.status}}</center>',
+                cellTemplate: '<center>{{row.entity.status}}</center>',
                 visible: true
             },
-	    {
-		name: 'customerFirstName',
-                displayName:  'Customer Name',
+            {
+                name: 'customerFirstName',
+                displayName: 'Customer Name',
                 width: 250,
                 enableColumnMenu: false,
-                cellTemplate : '<center>{{row.entity.customerFirstName}}</center>',
+                cellTemplate: '<center>{{row.entity.customerFirstName}}</center>',
                 visible: true
             },
             {
                 name: 'marketPlace',
-                displayName:  'Market Place',
+                displayName: 'Market Place',
                 width: 130,
                 enableColumnMenu: false,
-                cellTemplate : '<center>{{row.entity.marketPlace}}</center>',
+                cellTemplate: '<center>{{row.entity.marketPlace}}</center>',
                 visible: true
             },
             {
                 name: 'invoiceNumber',
-                displayName:  'Invoice Number',
+                displayName: 'Invoice Number',
                 width: 120,
                 enableColumnMenu: false,
-                cellTemplate : '<center>{{row.entity.invoiceNumber}}</center>',
+                cellTemplate: '<center>{{row.entity.invoiceNumber}}</center>',
                 visible: true
             },
-	    {
-                 name: 'updatedAt',
-                displayName:  'Invoice',
+            {
+                name: 'updatedAt',
+                displayName: 'Invoice',
                 width: 80,
                 enableColumnMenu: false,
-                cellTemplate : '<center><a href="#""><i class="fa fa-download" aria-hidden="true"></i></a></center>',
+                cellTemplate: '<center><a href="#""><i class="fa fa-download" aria-hidden="true"></i></a></center>',
                 visible: true
             }
         ];
 
 
-         displayData.forEach(function(row) {                        
-                         $scope.orderDetailsGridData.push(row);
-                    }); 
+        displayData.forEach(function (row) {
+            $scope.orderDetailsGridData.push(row);
+        });
 
- 
-}]);
+
+    }]);
 ;

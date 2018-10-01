@@ -147,7 +147,6 @@ angular.module('SLModule.home')
 				}
 			}
 
-
 			$scope.signedIn = {
 				"status": slDashboardConfig.signedIn
 			};

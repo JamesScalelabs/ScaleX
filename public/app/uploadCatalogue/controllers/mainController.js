@@ -1,7 +1,7 @@
 angular.module('SLModule.uploadCatalogue')
 
-    .controller('UploadCatalogueController', ["$scope", "$uibModal", "$window", "slDashboardConfig", "localStorageService", "SharedService", "UploadCatalogueService","FileSaver",
-        function($scope, $uibModal, $window, slDashboardConfig, localStorageService, SharedService, UploadCatalogueService,FileSaver) {
+    .controller('UploadCatalogueController', ["$scope", "$uibModal", "$window", "slDashboardConfig", "localStorageService", "SharedService", "UploadCatalogueService", "FileSaver",
+        function ($scope, $uibModal, $window, slDashboardConfig, localStorageService, SharedService, UploadCatalogueService, FileSaver) {
             console.log('UploadCatalogueController');
 
             $scope.fileName = "No File Selected";
@@ -27,7 +27,7 @@ angular.module('SLModule.uploadCatalogue')
                 "msg": ""
             };
 
-            $scope.closeAlert = function() {
+            $scope.closeAlert = function () {
                 $scope.alerts.alert = false;
             };
 
@@ -96,7 +96,7 @@ angular.module('SLModule.uploadCatalogue')
                 // $scope.disableSellerUB = $scope.selectedMP === "Select" ? true : false;
             }*/
 
-            $scope.managerUpload = function() {
+            $scope.managerUpload = function () {
 
                 managerUploadReq = {
                     "user": {
@@ -107,7 +107,7 @@ angular.module('SLModule.uploadCatalogue')
                 var rowsSelected = $scope.gridApi.selection.getSelectedRows();
 
 
-                rowsSelected.forEach(function(data) {
+                rowsSelected.forEach(function (data) {
                     var temp = {
                         "id": "",
                         "marketPlace": "",
@@ -121,7 +121,7 @@ angular.module('SLModule.uploadCatalogue')
 
 
                 $scope.onLoad = true;
-                UploadCatalogueService.managerUploadCatalogue(managerUploadReq).success(function(result) {
+                UploadCatalogueService.managerUploadCatalogue(managerUploadReq).success(function (result) {
                     if (result.responseCode === 0) {
                         $scope.onLoad = false;
                         getAllProducts();
@@ -132,17 +132,17 @@ angular.module('SLModule.uploadCatalogue')
                         $scope.alerts.msg = result.errorMsg;
                     }
                 }).
-                error(function(data, status, headers, config) {
-                    $scope.onLoad = false;
-                    $scope.alerts.alert = true;
-                    $scope.alerts.type = 'danger';
-                    $scope.alerts.msg = SharedService.getErrorMessage(status);
-                });
+                    error(function (data, status, headers, config) {
+                        $scope.onLoad = false;
+                        $scope.alerts.alert = true;
+                        $scope.alerts.type = 'danger';
+                        $scope.alerts.msg = SharedService.getErrorMessage(status);
+                    });
 
 
             };
 
-            $scope.populateSeller = function() {
+            $scope.populateSeller = function () {
 
                 $scope.alerts.alert = false;
 
@@ -165,11 +165,11 @@ angular.module('SLModule.uploadCatalogue')
                     };
 
                     $scope.onSyncFS = true;
-                    SharedService.getAllocateSellers(getASRequest).success(function(result) {
+                    SharedService.getAllocateSellers(getASRequest).success(function (result) {
                         $scope.onSyncFS = false;
                         if (result.responseCode === 0 && result.response.allocatedUser) {
 
-                            _.forEach(result.response.allocatedUser, function(data) {
+                            _.forEach(result.response.allocatedUser, function (data) {
                                 $scope.sellerList.push(data.value);
                             });
 
@@ -181,28 +181,28 @@ angular.module('SLModule.uploadCatalogue')
                             $scope.disableSubmit = false;
                         }
                     }).
-                    error(function(data, status, headers, config) {
-                        $scope.onGetSeller = false;
-                        $scope.alerts.alert = true;
-                        $scope.alerts.type = 'danger';
-                        $scope.alerts.msg = SharedService.getErrorMessage(status);
-                    });
+                        error(function (data, status, headers, config) {
+                            $scope.onGetSeller = false;
+                            $scope.alerts.alert = true;
+                            $scope.alerts.type = 'danger';
+                            $scope.alerts.msg = SharedService.getErrorMessage(status);
+                        });
                 }
             };
-            $scope.getAP = function() {
+            $scope.getAP = function () {
                 getAllProducts();
             };
-            getAllProducts = function() {
+            getAllProducts = function () {
 
                 $scope.onLoad = true;
                 request = {
                     "userName": $scope.selectedSeller
                 };
                 $scope.productDetailsData = [];
-                UploadCatalogueService.getAllProducts(request).success(function(result) {
+                UploadCatalogueService.getAllProducts(request).success(function (result) {
                     if (result.responseCode === 0) {
-                        
-                        result.response.productDetails.forEach(function(data) {
+
+                        result.response.productDetails.forEach(function (data) {
                             $scope.productDetailsData.push(data);
 
                         });
@@ -214,12 +214,12 @@ angular.module('SLModule.uploadCatalogue')
                         $scope.alert.msg = result.errorMsg;
                     }
                 }).
-                error(function(data, status, headers, config) {
-                    $scope.onLoad = false;
-                    $scope.alert.alert = true;
-                    $scope.alert.type = 'danger';
-                    $scope.alert.msg = SharedService.getErrorMessage(status);
-                });
+                    error(function (data, status, headers, config) {
+                        $scope.onLoad = false;
+                        $scope.alert.alert = true;
+                        $scope.alert.type = 'danger';
+                        $scope.alert.msg = SharedService.getErrorMessage(status);
+                    });
             };
 
 
@@ -257,27 +257,27 @@ angular.module('SLModule.uploadCatalogue')
 
 
             $scope.productDetails.columnDefs = [
-		{
+                {
                     displayName: 'Seller Sku',
                     name: 'sellerSku',
                     width: 150,
                     enableColumnMenu: false,
                     visible: true
-		},
-		{
+                },
+                {
                     displayName: 'Brand',
                     name: 'brand',
                     width: 150,
                     enableColumnMenu: false,
                     visible: true
                 },
-		{
-			displayName: 'Product Name',
-			name: 'name',
-                        width: 300,
-                        enableColumnMenu: false,
-                        visible: true
-		},
+                {
+                    displayName: 'Product Name',
+                    name: 'name',
+                    width: 300,
+                    enableColumnMenu: false,
+                    visible: true
+                },
                 {
                     displayName: 'Product Color',
                     name: 'color',
@@ -285,13 +285,13 @@ angular.module('SLModule.uploadCatalogue')
                     enableColumnMenu: false,
                     visible: true
                 },
-		{
+                {
                     model: 'Model',
                     name: 'model',
                     width: 130,
                     enableColumnMenu: false,
                     visible: true
-		},
+                },
                 {
                     displayName: 'Quantity',
                     name: 'quantity',
@@ -406,27 +406,27 @@ angular.module('SLModule.uploadCatalogue')
                 }
             ];
 
-            $scope.toggleMultiSelect = function() {
+            $scope.toggleMultiSelect = function () {
                 $scope.gridApi.selection.setMultiSelect(!$scope.gridApi.grid.options.multiSelect);
             };
 
-            $scope.toggleModifierKeysToMultiSelect = function() {
+            $scope.toggleModifierKeysToMultiSelect = function () {
                 $scope.gridApi.selection.setModifierKeysToMultiSelect(!$scope.gridApi.grid.options.modifierKeysToMultiSelect);
             };
 
-            $scope.selectAll = function() {
+            $scope.selectAll = function () {
                 $scope.gridApi.selection.selectAllRows();
             };
 
-            $scope.clearAll = function() {
+            $scope.clearAll = function () {
                 $scope.gridApi.selection.clearSelectedRows();
             };
 
-            $scope.toggleRow1 = function() {
+            $scope.toggleRow1 = function () {
                 $scope.gridApi.selection.toggleRowSelection($scope.productDetails.data[0]);
             };
 
-            $scope.toggleFullRowSelection = function() {
+            $scope.toggleFullRowSelection = function () {
                 $scope.productDetails.enableFullRowSelection = !$scope.productDetails.enableFullRowSelection;
                 $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.OPTIONS);
             };
@@ -434,17 +434,17 @@ angular.module('SLModule.uploadCatalogue')
 
 
 
-            $scope.setSelectable = function() {
+            $scope.setSelectable = function () {
                 $scope.gridApi.selection.clearSelectedRows();
                 $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.OPTIONS);
                 $scope.gridApi.core.notifyDataChange(uiGridConstants.dataChange.EDIT);
             };
 
 
-            $scope.productDetails.onRegisterApi = function(gridApi) {
+            $scope.productDetails.onRegisterApi = function (gridApi) {
                 //set gridApi on scope
                 $scope.gridApi = gridApi;
-                gridApi.selection.on.rowSelectionChanged($scope, function(row) {
+                gridApi.selection.on.rowSelectionChanged($scope, function (row) {
                     if ($scope.gridApi.selection.getSelectedRows().length > 0) {
                         $scope.disableUploadButton = false;
                     } else {
@@ -458,7 +458,7 @@ angular.module('SLModule.uploadCatalogue')
 
                 });
 
-                gridApi.selection.on.rowSelectionChangedBatch($scope, function(rows) {
+                gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
                     if ($scope.gridApi.selection.getSelectedRows().length > 0) {
                         $scope.disableUploadButton = false;
 
@@ -471,19 +471,19 @@ angular.module('SLModule.uploadCatalogue')
 
             };
 
-            $scope.selectRow = function() {};
+            $scope.selectRow = function () { };
 
-            $scope.load_excel = function() {
+            $scope.load_excel = function () {
                 if (groupName !== "SELLER") {
                     $scope.onSyncFS = true;
 
                     var getManagerListReq = {
                         "userName": userName
                     };
-                    SharedService.getManagerRole(getManagerListReq).success(function(result) {
+                    SharedService.getManagerRole(getManagerListReq).success(function (result) {
                         $scope.onSyncFS = false;
                         if (result.responseCode === 0) {
-                            result.response.managerUsers.forEach(function(row) {
+                            result.response.managerUsers.forEach(function (row) {
                                 $scope.managerList.push(row.userName);
                             });
                         } else {
@@ -493,12 +493,12 @@ angular.module('SLModule.uploadCatalogue')
                             $scope.disableSubmit = false;
                         }
                     }).
-                    error(function(data, status, headers, config) {
-                        $scope.onSyncFS = false;
-                        $scope.alerts.alert = true;
-                        $scope.alerts.type = 'danger';
-                        $scope.alerts.msg = SharedService.getErrorMessage(status);
-                    });
+                        error(function (data, status, headers, config) {
+                            $scope.onSyncFS = false;
+                            $scope.alerts.alert = true;
+                            $scope.alerts.type = 'danger';
+                            $scope.alerts.msg = SharedService.getErrorMessage(status);
+                        });
                 }
                 var oFileIn;
                 oFileIn = document.getElementById('cat-file');
@@ -508,7 +508,7 @@ angular.module('SLModule.uploadCatalogue')
 
             }
 
-            filePicked = function(oEvent) {
+            filePicked = function (oEvent) {
                 var ext = this.value.match(/\.([^\.]+)$/)[1];
                 switch (ext) {
                     case 'xlsx':
@@ -529,24 +529,24 @@ angular.module('SLModule.uploadCatalogue')
                 var reader = new FileReader();
 
                 // Ready The Event For When A File Gets Selected
-                reader.onload = function(e) {
+                reader.onload = function (e) {
 
                     var data = e.target.result;
                     var cfb = XLSX.read(data, {
                         type: 'binary',
-                       
-                         blankrows: false,
+
+                        blankrows: false,
                     });
                     var sheet = [cfb.SheetNames[0]];
-                    sheet.forEach(function(sheetName) {
+                    sheet.forEach(function (sheetName) {
                         // Obtain The Current Row As CSV
-                        
+
                         var range = XLSX.utils.decode_range(cfb.Sheets[sheetName]['!ref']);
-                        
+
                         range.s.r = 3; // <-- zero-indexed, so setting to 1 will skip row 0
-                        
+
                         cfb.Sheets[sheetName]['!ref'] = XLSX.utils.encode_range(range);
-                        
+
                         var oJS = XLS.utils.sheet_to_json(cfb.Sheets[sheetName]);
                         console.log(oJS)
                         $scope.oJS = oJS;
@@ -557,23 +557,23 @@ angular.module('SLModule.uploadCatalogue')
                 // Tell JS To Start Reading The File.. You could delay this if desired
                 reader.readAsBinaryString(oFile);
             }
-            $scope.getProductExcel = function(){
-               var selectedProIds =[];
-               $scope.gridApi.selection.getSelectedRows().forEach(function(row){
-                    selectedProIds.push({"id": row.id});
-               });
-               var uploadRequest = {
+            $scope.getProductExcel = function () {
+                var selectedProIds = [];
+                $scope.gridApi.selection.getSelectedRows().forEach(function (row) {
+                    selectedProIds.push({ "id": row.id });
+                });
+                var uploadRequest = {
                     "userName": $scope.selectedSeller,
-                    "productDetails":selectedProIds
+                    "productDetails": selectedProIds
                 }
-               UploadCatalogueService.getProductExcel(uploadRequest).success(function(data,status,headers){
+                UploadCatalogueService.getProductExcel(uploadRequest).success(function (data, status, headers) {
                     var file = data.response.fileName;
-                    window.location.href = slDashboardConfig.restServer + slDashboardConfig.restApis.GET_PRODUCT_FILE+"/"+file;
-               });
+                    window.location.href = slDashboardConfig.restServer + slDashboardConfig.restApis.GET_PRODUCT_FILE + "/" + file;
+                });
             }
 
-            $scope.uploadToServer = function() {
-              $scope.alerts.alert = false;
+            $scope.uploadToServer = function () {
+                $scope.alerts.alert = false;
                 uploadRequest = {
                     "userName": $scope.selectedSeller,
                     "marketPlace": $scope.selectedMP,
@@ -586,12 +586,12 @@ angular.module('SLModule.uploadCatalogue')
                     $scope.alerts.type = 'danger';
                     $scope.alerts.msg = "Please select File";
                 } else {
-                    $scope.oJS.forEach(function(data) {
+                    $scope.oJS.forEach(function (data) {
                         uploadRequest.productDetails.push(data);
                     });
                     $scope.onLoad = true;
 
-                    UploadCatalogueService.uploadCatalogue(uploadRequest).success(function(result) {
+                    UploadCatalogueService.uploadCatalogue(uploadRequest).success(function (result) {
 
                         if (result.responseCode === 0) {
                             $scope.onLoad = false;
@@ -612,17 +612,17 @@ angular.module('SLModule.uploadCatalogue')
                             $scope.alerts.msg = result.errorMsg;
                         }
                     }).
-                    error(function(data, status, headers, config) {
-                        $scope.onLoad = false;
-                        $scope.alerts.alert = true;
-                        $scope.alerts.type = 'danger';
-                        $scope.alerts.msg = SharedService.getErrorMessage(status);
-                    });
+                        error(function (data, status, headers, config) {
+                            $scope.onLoad = false;
+                            $scope.alerts.alert = true;
+                            $scope.alerts.type = 'danger';
+                            $scope.alerts.msg = SharedService.getErrorMessage(status);
+                        });
                 }
 
             };
-            $scope.updateProductExcel = function() {
-              $scope.alerts.alert = false;
+            $scope.updateProductExcel = function () {
+                $scope.alerts.alert = false;
                 uploadRequest = {
                     "userName": $scope.selectedSeller,
                     "marketPlace": $scope.selectedMP,
@@ -635,12 +635,12 @@ angular.module('SLModule.uploadCatalogue')
                     $scope.alerts.type = 'danger';
                     $scope.alerts.msg = "Please select File";
                 } else {
-                    $scope.oJS.forEach(function(data) {
+                    $scope.oJS.forEach(function (data) {
                         uploadRequest.productDetails.push(data);
                     });
                     $scope.onLoad = true;
 
-                    UploadCatalogueService.updateProductExcel(uploadRequest).success(function(result) {
+                    UploadCatalogueService.updateProductExcel(uploadRequest).success(function (result) {
 
                         if (result.responseCode === 0) {
                             $scope.onLoad = false;
@@ -661,12 +661,12 @@ angular.module('SLModule.uploadCatalogue')
                             $scope.alerts.msg = result.errorMsg;
                         }
                     }).
-                    error(function(data, status, headers, config) {
-                        $scope.onLoad = false;
-                        $scope.alerts.alert = true;
-                        $scope.alerts.type = 'danger';
-                        $scope.alerts.msg = SharedService.getErrorMessage(status);
-                    });
+                        error(function (data, status, headers, config) {
+                            $scope.onLoad = false;
+                            $scope.alerts.alert = true;
+                            $scope.alerts.type = 'danger';
+                            $scope.alerts.msg = SharedService.getErrorMessage(status);
+                        });
                 }
 
             };
